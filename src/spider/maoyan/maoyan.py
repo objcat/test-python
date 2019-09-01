@@ -10,7 +10,7 @@ import requests
 from multiprocessing import Pool
 from requests.exceptions import RequestException
 from tools.tool import write_to_file, save_to_mongo
-from config.config import MONGO_DB_MAOYAN_NAME, MONGO_TABLE_MAOYAN_NAME
+from configs.config import MONGO_DB_MAOYAN_NAME, MONGO_TABLE_MAOYAN_NAME
 
 def get_html(url):
     """使用requests库获取html

@@ -1,5 +1,5 @@
 """
- description: config.py
+ description: configs.py
  time: 2019/9/1 16:44
  author: objcat
  verson: 1.0

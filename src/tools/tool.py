@@ -5,7 +5,7 @@
  verson: 1.0
 """
 import time
-from config.config import *
+from configs.config import *
 import pymongo
 
 client = pymongo.MongoClient(MONGO_URL)

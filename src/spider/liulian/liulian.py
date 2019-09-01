@@ -9,7 +9,7 @@ import re
 import requests
 import urllib3
 from tools.tool import write_to_file, save_to_mongo
-from config.config import MONGO_DB_LIULIAN_NAME, MONGO_TABLE_LIULIAN_NAME
+from configs.config import MONGO_DB_LIULIAN_NAME, MONGO_TABLE_LIULIAN_NAME
 
 # 去掉ssl警告
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)

@@ -11,7 +11,8 @@ from tools.tool import sleep_5_do, sleep_1_print
 
 headers = {
     'cache-control': "no-cache",
-    "Cookie": "手机qq空间app -> 小游戏 -> qq农场wap",
+    # 手机qq空间app -> 小游戏 -> qq农场wap 自己去抓 或者 破解cookie --- 本人暂时没有破解cookie
+    "Cookie": "",
     "User-Agent": "QZONEJSSDK/8.3.6.1 QQJSSDK/1.2 Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_4 like Mac OS X) AppleWebKit/605.1.15"
 }
 

@@ -9,8 +9,8 @@ import re
 import requests
 from multiprocessing import Pool
 from requests.exceptions import RequestException
-from tools.tool import write_to_file
-
+from tools.tool import write_to_file, save_to_mongo
+from config.config import MONGO_DB_MAOYAN_NAME, MONGO_TABLE_MAOYAN_NAME
 
 def get_html(url):
     """使用requests库获取html
@@ -56,15 +56,18 @@ def parse_with_offset(offset):
     html = get_html(url)
     items = analysis_html(html)
     for item in items:
+        # 打印item
         print(item)
-        write_to_file(json.dumps(item, ensure_ascii=False) + '\n')
+        # 写入到result.txt
+        # write_to_file(json.dumps(item, ensure_ascii=False) + '\n')
+        # 保存到mongodb
+        # save_to_mongo(MONGO_DB_MAOYAN_NAME, MONGO_TABLE_MAOYAN_NAME, item)
 
 
 def main():
     # 多线程 并发速度快 但是无序
     pool = Pool()
     pool.map(parse_with_offset, [i * 10 for i in range(10)])
-
     # 单线程 队列 速度慢 但是有序
     # for i in range(10):
     #     parse_with_offset(i * 10)

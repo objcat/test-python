@@ -5,6 +5,10 @@
  verson: 1.0
 """
 import time
+from config.config import *
+import pymongo
+
+client = pymongo.MongoClient(MONGO_URL)
 
 
 def write_to_file(content):
@@ -32,3 +36,8 @@ def sleep_1_print(content):
     """
     time.sleep(1)
     print(content)
+
+
+def save_to_mongo(dbName, tableName, dic):
+    table = client[dbName][tableName]
+    table.insert(dic)

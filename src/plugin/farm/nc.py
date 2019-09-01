@@ -107,6 +107,10 @@ def plant():
 
 
 def log(response):
+    """解析返回结果
+    :param response: requests.Response
+    :return: None
+    """
     soup = BeautifulSoup(response.content, features="html.parser")
     # print(soup.prettify())
     arr = soup.find_all("p")

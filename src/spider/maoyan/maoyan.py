@@ -10,7 +10,7 @@ import requests
 from multiprocessing import Pool
 from requests.exceptions import RequestException
 from tools.tool import write_to_file, save_to_mongo
-from configs.config import MONGO_DB_MAOYAN_NAME, MONGO_TABLE_MAOYAN_NAME
+from configs.config import MONGO_TABLE_MAOYAN_NAME
 
 def get_html(url):
     """使用requests库获取html
@@ -61,7 +61,7 @@ def parse_with_offset(offset):
         # 写入到result.txt
         # write_to_file(json.dumps(item, ensure_ascii=False) + '\n')
         # 保存到mongodb
-        # save_to_mongo(MONGO_DB_MAOYAN_NAME, MONGO_TABLE_MAOYAN_NAME, item)
+        # save_to_mongo(MONGO_TABLE_MAOYAN_NAME, item)
 
 
 def main():

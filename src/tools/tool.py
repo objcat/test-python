@@ -38,6 +38,6 @@ def sleep_1_print(content):
     print(content)
 
 
-def save_to_mongo(dbName, tableName, dic):
-    table = client[dbName][tableName]
+def save_to_mongo(tableName, dic):
+    table = client[MONGO_DB_NAME][tableName]
     table.insert(dic)

@@ -9,7 +9,7 @@ import re
 import requests
 from multiprocessing import Pool
 from requests.exceptions import RequestException
-from spider.tool.tool import write_to_file
+from tools.tool import write_to_file
 
 
 def get_html(url):

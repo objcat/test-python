@@ -8,7 +8,7 @@ import json
 import re
 import requests
 import urllib3
-from spider.tool.tool import write_to_file
+from tools.tool import write_to_file
 
 # 去掉ssl警告
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)

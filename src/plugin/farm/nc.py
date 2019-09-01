@@ -7,7 +7,7 @@
 
 import requests
 from bs4 import BeautifulSoup
-from plugin.farm.tool import sleep_5_do, sleep_1_print
+from tools.tool import sleep_5_do, sleep_1_print
 
 headers = {
     'cache-control': "no-cache",

@@ -12,7 +12,7 @@ spider 爬虫目录
 tools 工具类
     - tool 存放一些自己写的工具
 plugin 外挂目录
-    - farm 农产伴侣v1.0(没有破解cookie)
+    - farm 农产伴侣v1.0(需要cookie自己登陆手机qq空间去抓)
 configs 配置文件目录
     - config 配置数据库
 ``` 

@@ -1,4 +1,3 @@
-# test-python
 # objcat的python练习仓库
 
 > 记录了objcat的python学习旅程 之所以没有设为私有项目 目的是为了让更多人都能学到这门技术 希望我的代码会对你有所启发

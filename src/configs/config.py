@@ -2,7 +2,7 @@
  description: configs.py
  time: 2019/9/1 16:44
  author: objcat
- verson: 1.0
+ version: 1.0
 """
 
 MONGO_URL = '127.0.0.1'

@@ -2,7 +2,7 @@
  description: qq农场自动收菜种菜
  time: 2019/8/22 16:34
  author: objcat
- verson: 1.0
+ version: 1.0
 """
 
 import requests

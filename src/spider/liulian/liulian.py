@@ -2,7 +2,7 @@
  description: 爬取1688榴莲
  time: 2019/8/31 00:33
  author: objcat
- verson: 1.0
+ version: 1.0
 """
 import json
 import re

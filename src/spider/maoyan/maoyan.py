@@ -2,7 +2,7 @@
  description: 爬取猫眼电影top100
  time: 2019/9/1 10:33
  author: objcat
- verson: 1.0
+ version: 1.0
 """
 import json
 import re
@@ -11,6 +11,7 @@ from multiprocessing import Pool
 from requests.exceptions import RequestException
 from tools.tool import write_to_file, save_to_mongo
 from configs.config import MONGO_TABLE_MAOYAN_NAME
+
 
 def get_html(url):
     """使用requests库获取html

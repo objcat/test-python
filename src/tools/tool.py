@@ -2,7 +2,7 @@
  description: tool.py
  time: 2019/9/1 10:57
  author: objcat
- verson: 1.0
+ version: 1.0
 """
 import time
 from configs.config import *

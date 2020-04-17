@@ -1,6 +1,10 @@
-
+import os
 import re
 import json
+import random
+import hashlib
+import time
+
 from requests import request
 
 
@@ -15,30 +19,47 @@ def strings_to_file():
             newFile.write(item[0] + "," + item[1] + "\n")
             print(item[0])
             print(item[1])
-        # print(line)
-    # print(fo)
     fo.close()
 
 
 def file_translation():
+
+    fo = open("./1.txt", "rb")
+    f2 = open("./2.txt", "w", encoding="utf-8")
+
+    for line in fo.readlines():
+        s = line.decode()
+        a = s.split(',')
+        r = request_baidu(a[1])
+        f2.write(a[0] + "|" + r + "|" + a[1])
+        time.sleep(1)
+    fo.close()
+    f2.close()
+
+def request_baidu(q):
+    salt = random.randint(0,100)
+    appid = "20200417000423061"
+    signStr = appid + q + str(salt) + "80Klm6_i5EIZcSIPVNI8"
     body = {
-        "query": "要是正、要重点点検項目がありますが、社内指示が既に最大数書き込みされているため、\n 要是正、要重点点検内容が社内指示に自動反映できません。",
+        "q": q,
         "from": "jp",
         "to": "zh",
-        "transtype": "translang",
-        "sign": "700785.938560",
-        "token": "0b4df204801214eefb2ea604b334cfeb",
-        "domain": "common"
-
+        "appid": appid,
+        "salt": salt,
+        "tts": "1",
+        "dict": "1",
+        "action": "0",
+        "sign": hashlib.md5(signStr.encode()).hexdigest()
     }
-    header = {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
-    }
-
-    req = request(method="post", url="https://fanyi.baidu.com/v2transapi?from=jp&to=zh", data=body, headers=header)
-    print(req.content)
-
+    req = request(method="post", url="http://api.fanyi.baidu.com/api/trans/vip/translate", data=body)
+    print(req.content.decode())
+    j = json.loads(req.content)
+    arr = j["trans_result"]
+    result = ""
+    for dic in arr:
+        result += dic["dst"]
+    print(result)
+    return result
 
 if __name__ == '__main__':
     file_translation()

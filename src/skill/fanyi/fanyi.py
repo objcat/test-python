@@ -31,7 +31,10 @@ def file_translation():
         s = line.decode()
         a = s.split(',')
         r = request_baidu(a[1])
-        f2.write(a[0] + "|" + r + "|" + a[1])
+        r = r.replace("\n", "")
+        s = a[0] + "|" + r + "|" + a[1]
+        print(s)
+        f2.write(s)
         time.sleep(1)
     fo.close()
     f2.close()
@@ -52,13 +55,11 @@ def request_baidu(q):
         "sign": hashlib.md5(signStr.encode()).hexdigest()
     }
     req = request(method="post", url="http://api.fanyi.baidu.com/api/trans/vip/translate", data=body)
-    print(req.content.decode())
     j = json.loads(req.content)
     arr = j["trans_result"]
     result = ""
     for dic in arr:
         result += dic["dst"]
-    print(result)
     return result
 
 if __name__ == '__main__':

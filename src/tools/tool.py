@@ -6,17 +6,17 @@
 """
 import time
 from configs.config import *
-import pymongo
+# import pymongo
 
-client = pymongo.MongoClient(MONGO_URL)
+# client = pymongo.MongoClient(MONGO_URL)
 
 
-def write_to_file(content):
+def write_to_file(path, content):
     """写入字符串到文件
     :param content: 字符串
     :return: None
     """
-    with open('result.txt', 'a', encoding='utf-8') as txt:
+    with open(path, 'a', encoding='utf-8') as txt:
         txt.write(content)
 
 
@@ -38,6 +38,6 @@ def sleep_1_print(content):
     print(content)
 
 
-def save_to_mongo(tableName, dic):
-    table = client[MONGO_DB_NAME][tableName]
-    table.insert(dic)
+# def save_to_mongo(tableName, dic):
+#     table = client[MONGO_DB_NAME][tableName]
+#     table.insert(dic)

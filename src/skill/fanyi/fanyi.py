@@ -7,6 +7,10 @@ import time
 
 from requests import request
 
+"""
+目前在做日文iOS项目 所以写一个程序来翻译文本中的日文
+原理是调用百度翻译的免费api进行翻译
+"""
 
 def strings_to_file():
     pattern = re.compile(r'"(.*?)" = "(.*?)";', re.S)

@@ -142,13 +142,19 @@ def download_m3u8_file(url):
 # 下载根路径 设置成 "." 则为当前目录
 base_path = "D:/video"
 m3u8_url = "https://xxx/xxx.m3u8"
+
+
 # base_path = "."
 
 
-if __name__ == '__main__':
+def start():
     # 下载m3u8文件
-    x, y, z = download_m3u8_file(m3u8_url)
+    m3u8_path, download_path, domain = download_m3u8_file(m3u8_url)
     # 解析文件并下载ts
-    analysis_m3u8_file_and_download(x, y, z)
-    # 生成脚本
-    mix(x, y)
+    analysis_m3u8_file_and_download(m3u8_path, download_path, domain)
+    # 生成自动合成脚本
+    mix(m3u8_path, download_path)
+
+
+if __name__ == '__main__':
+    start()

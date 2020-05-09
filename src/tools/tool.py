@@ -5,6 +5,7 @@
  version: 1.0
 """
 import time
+import os
 from configs.config import *
 # import pymongo
 
@@ -36,6 +37,17 @@ def sleep_1_print(content):
     """
     time.sleep(1)
     print(content)
+
+def mkdir(path):
+    """
+    创建文件夹
+    :param path:
+    :return:
+    """
+    exist = os.path.exists(path)
+    if not exist:
+        os.makedirs(path)
+    return path
 
 
 # def save_to_mongo(tableName, dic):

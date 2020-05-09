@@ -72,9 +72,9 @@ def request_baidu(q):
 
 
 def translation2():
-    f1 = open("./FC00I21CheckItemCheckData.h", encoding="utf-8")
-    f3 = open("./3.txt", "a", encoding="utf-8")
+    f1 = open("/Users/macmini/project/iOS/survey_local2/survey/Classes/Model/DBModel/F31081.h", encoding="utf-8")
     arr = f1.readlines()
+    f1.close()
     result = []
     dic = {}
     i = 1
@@ -88,27 +88,29 @@ def translation2():
                 line = line[index1 + 1:index2]
                 line = line.strip()
                 dic['name'] = line
+                # print(dic['name'])
+
 
             if line.__contains__(" * "):
                 line = line.replace("*", "")
                 line = line.strip()
                 dic['jp'] = line
-                # 进行翻译
-                tr = request_baidu(line)
-                dic['tr'] = tr
+
 
             if i % 2 == 0:
-                # f3.write(dic['name'] + "|" + dic['jp'] + "\n")
-                f3.write(dic['name'] + "|" + dic['tr'] + "|" + dic['jp'] + "\n")
-                time.sleep(1)
-                print(dic)
+                # print(dic)
                 result.append(dic)
+                dic = {}
 
             i += 1
 
-    s = json.dumps(result)
-    a = s.encode('utf-8').decode('unicode_escape')
-    print(a)
+    print(result)
+
+    for dic in result:
+        print(dic['name'])
+
+    for dic in result:
+        print(dic['jp'])
 
 
 def start():

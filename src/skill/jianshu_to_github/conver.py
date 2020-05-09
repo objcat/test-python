@@ -46,10 +46,15 @@ def download_replace(file_path):
                 result = requests.get(item[0][1])
                 with open(img_path + "/" + str(i) + ".png", "wb") as f2:
                     f2.write(result.content)
-                print("开始替换")
+
+                # 包含图片名字
                 # new_url = "![" + item[0][0] + "](" + "./images/" + file_name + "/"  + str(i) + ".png" + ")" + "\n"
+                # 把图片名字替换为[] 我比较喜欢这种
+
+                print("开始替换")
                 new_url = "![](" + "./images/" + file_name + "/" + str(i) + ".png" + ")" + "\n"
                 print(url + "替换成" + new_url)
+
                 content2 = content2.replace(url, new_url)
             i += 1
     # 生成新文档

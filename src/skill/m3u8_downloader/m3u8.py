@@ -28,19 +28,24 @@ def analysis_m3u8_file_and_download(m3u8_path, download_path, domain):
     :param domain: 域名
     :return:
     """
+
     f = open(m3u8_path)
-    line = f.readline()
-    while line:
+    lines = f.readlines()
+    f.close()
+    total = len([line for line in lines if "ts" in line])
+    i = 1
+    for line in lines:
         if "ts" in line:
             new_file_path = download_path + os.path.basename(line.strip())
             if os.path.exists(new_file_path):
-                line = f.readline()
+                i += 1
                 continue
             time.sleep(1)
             download_url = domain + line
+            print("开始下载:" + download_url.strip())
+            print("下载进度" + str(i) + " / " + str(total))
+            i += 1
             MyThread(download_url, download_path).start()
-        line = f.readline()
-    f.close()
 
 
 def download(download_url, download_path):
@@ -50,7 +55,7 @@ def download(download_url, download_path):
     :param download_path: 下载路径
     :return:
     """
-    print("开始下载:" + download_url.strip())
+
     new_file_path = download_path + os.path.basename(download_url.strip())
     try:
         res = request(url=download_url.strip(), method="get", timeout=20)
@@ -78,10 +83,11 @@ def mix(m3u8_path, download_path):
     """
     制作合成脚本
     因为m3u8下载后是一个个的ts文件 所以需要脚本来合成为一个视频文件
-    :param m3u8_path:
-    :param download_path:
+    :param m3u8_path: m3u8的文件路径
+    :param download_path: 下载路径
     :return:
     """
+
     cmd = "copy/b"
     arr = list()
     f = open(m3u8_path)
@@ -109,6 +115,7 @@ def download_m3u8_file(url):
     :param url: m3u8文件url
     :return:
     """
+
     file_name = hashlib.md5(url.encode()).hexdigest()
     download_path = mkdir(base_path + "/" + file_name) + "/"
     m3u8_path = base_path + "/" + file_name + "/" + file_name + ".m3u8"
@@ -141,10 +148,7 @@ def download_m3u8_file(url):
 
 # 下载根路径 设置成 "." 则为当前目录
 base_path = "D:/video"
-m3u8_url = "https://xxx/xxx.m3u8"
-
-
-# base_path = "."
+m3u8_url = "https://www.xxxx.com/xxx.m3u8"
 
 
 def start():

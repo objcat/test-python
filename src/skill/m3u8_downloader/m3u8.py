@@ -46,6 +46,7 @@ def analysis_m3u8_file_and_download(m3u8_path, download_path, domain):
             print("下载进度" + str(i) + " / " + str(total))
             i += 1
             MyThread(download_url, download_path).start()
+    print("总进度 " + str(total) + " / " + str(total) + " 下载完成!")
 
 
 def download(download_url, download_path):

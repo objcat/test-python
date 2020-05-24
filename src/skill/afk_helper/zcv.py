@@ -77,8 +77,7 @@ class Zcv:
         :param debug: 是否调试模式
         :return:
         """
-        img1 = adb.cv_rgb_screencap()
-        img2 = zcv.imread("./img/2.png")
+
         sift = cv2.xfeatures2d.SIFT_create()
         kp1, des1 = sift.detectAndCompute(img1, None)
         kp2, des2 = sift.detectAndCompute(img2, None)

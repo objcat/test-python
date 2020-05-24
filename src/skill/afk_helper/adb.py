@@ -105,8 +105,11 @@ class Adb:
         except:
             x, y = key["point"]["default"]
 
-        print(f"[{datetime.datetime.now()}] 点击{name} x={x} y={y}")
+        self.log(f"点击{name} x={x} y={y}")
         os.system(f"adb -s {self.device} shell input tap {x} {y}")
+
+    def log(self, text):
+        print(f"[{datetime.datetime.now()}] {text}")
 
     def connect(self, device):
         os.system(f"adb connect {self.device}")

@@ -18,13 +18,14 @@ second_challenge_boss = {"name": "弹窗上的挑战首领", "point": {
     "1080x2340": (539, 1673),
 }}
 # 战斗
-battle = {"name": "战斗", "point": {
-    "default": (size.width(356), size.height(1223)),
-    "720x1280": (356, 1223),
-    "1080x2340": (526, 2255),
-}}
+battle = {"name": "战斗", "en_name": "battle",
+          "point": {
+              "default": (size.width(356), size.height(1223)),
+              "720x1280": (356, 1223),
+              "1080x2340": (526, 2255),
+          }}
 # 再次挑战
-retry = {"name": "再次挑战",
+retry = {"name": "再次挑战", "en_name": "retry", "img": "./img/retry.png",
          "point": {
              "default": (size.width(356), size.height(1140)),
              "720x1280": (356, 1140),
@@ -34,6 +35,20 @@ retry = {"name": "再次挑战",
              "720x1280": "31.575305938720703",
              "1080x2340": "19.899747848510742"
          }}
+
+# 下一关
+next = {"name": "下一关", "en_name": "next", "img": "./img/next.png",
+         "point": {
+             "default": (size.width(356), size.height(1140)),
+             "720x1280": (356, 1140),
+             "1080x2340": (535, 1872),
+         },
+         "distance": {
+             "720x1280": "31.575305938720703",
+             "1080x2340": "36.0"
+         }}
+
+
 # 空白区域
 white_place = {"name": "点击空白", "point": {
     "default": (539, 223)

@@ -17,8 +17,6 @@ import cv2
 from skill.afk_helper import config
 
 
-
-
 class Adb:
 
     def __init__(self, device):
@@ -72,7 +70,6 @@ class Adb:
         os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
         return np.array(PIL.Image.open('./img/sc.png'), dtype="uint8")
 
-
     def cv_rgb_screencap(self):
         os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
         image = cv2.imread("./img/sc.png")
@@ -99,9 +96,8 @@ class Adb:
         """
         name = key["name"]
         width, height = self.get_screen_size()
-        ratio_key = str(width) + "x" + str(height)
         try:
-            x, y = key["point"][ratio_key]
+            x, y = key["point"][self.ratio_key]
         except:
             x, y = key["point"]["default"]
 

@@ -38,16 +38,15 @@ retry = {"name": "再次挑战", "en_name": "retry", "img": "./img/retry.png",
 
 # 下一关
 next = {"name": "下一关", "en_name": "next", "img": "./img/next.png",
-         "point": {
-             "default": (size.width(356), size.height(1140)),
-             "720x1280": (356, 1140),
-             "1080x2340": (535, 1872),
-         },
-         "distance": {
-             "720x1280": "31.575305938720703",
-             "1080x2340": "36.0"
-         }}
-
+        "point": {
+            "default": (size.width(356), size.height(1140)),
+            "720x1280": (356, 1140),
+            "1080x2340": (535, 1872),
+        },
+        "distance": {
+            "720x1280": "31.575305938720703",
+            "1080x2340": "36.0"
+        }}
 
 # 空白区域
 white_place = {"name": "点击空白", "point": {

@@ -8,7 +8,6 @@ from skill.afk_helper.adb import adb
 
 
 class AFK:
-    # 初始化屏幕尺寸转换类
 
     # 开始
     def start(self):
@@ -17,20 +16,24 @@ class AFK:
         # 自动推关
         self.auto_challenge()
 
+        # 图像识别
+        # image = self.cv_read("./img/3.png")
+        # self.get_button_center(image, True)
+
+    def cv_read(self, path):
+        img = cv2.imread(path)
+        b, g, r = cv2.split(img)
+        rgb_img = cv2.merge([r, g, b])
+        return rgb_img
+
     def show_screen(self):
-        self.make_figure(adb.np_screencap())
+        # self.make_figure(adb.np_screencap())
+        self.plt_show(adb.cv_rgb_screencap())
 
-    def make_figure(self, image):
-        figure = plt.figure()
-        # 将图片画到坐标轴上面
+    def plt_show(self, image):
+        plt.figure()
         plt.imshow(image, animated=True)
-        # 显示图片出来
         plt.show()
-
-    def imshow(self, image):
-        cv2.imshow("image", image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
 
     def get_button_center(self, template, debug):
         """
@@ -43,7 +46,7 @@ class AFK:
 
         adb.save_screencap()
 
-        screencast = cv2.imread("/img/sc.png", 0)
+        screencast = self.cv_read("./img/sc.png")
 
         # 模板匹配
         result = cv2.matchTemplate(screencast, template, cv2.TM_CCOEFF_NORMED)
@@ -51,7 +54,7 @@ class AFK:
 
         print(min_val, max_val, min_loc, max_loc)
 
-        if max_val < 0.5:
+        if max_val < 0.45:
             return
 
         img2 = screencast.copy()
@@ -63,10 +66,8 @@ class AFK:
         center_y = y + h / 2
 
         if debug:
-            bottom_right = (x + w, y + h)
-            cv2.rectangle(img2, (x, y), bottom_right, 255, 2)
-            plt.imshow(img2)
-            plt.show()
+            cv2.rectangle(img2, (x, y), (x + w, y + h), (255.0, 255.0, 255.0), 2)
+            self.plt_show(img2)
 
         return center_x, center_y
 
@@ -84,7 +85,7 @@ class AFK:
             time.sleep(25)
             # 点击空白
             adb.click(key.white_place)
-            time.sleep(2)
+            time.sleep(1)
 
 
 if __name__ == '__main__':

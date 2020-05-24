@@ -81,7 +81,7 @@ class AFK:
             time.sleep(1)
             # 点击战斗
             adb.click(key.battle)
-            time.sleep(30)
+            time.sleep(17)
             # 点击重试
             adb.click(key.retry)
             time.sleep(1)

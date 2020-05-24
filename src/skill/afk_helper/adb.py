@@ -9,7 +9,7 @@ from skill.afk_helper import config
 
 
 class Adb:
-
+    
     def __init__(self, device):
         self.device = device
         self.__screen_size = (0, 0)

@@ -6,30 +6,23 @@ import PIL
 import matplotlib.pyplot as plt
 import time
 
-from skill.afk_helper.adb import Adb
-from skill.afk_helper.size import Size
+from skill.afk_helper.adb import adb
+from skill.afk_helper.size import size
+from skill.afk_helper import key
 
 
 class AFK:
-    adb = Adb()
-    conver = {}
+    # 初始化屏幕尺寸转换类
 
-    # conver = SizeConver();
-
+    # 开始
     def start(self):
-        # 获取屏幕截图 - 调试使用
-        # self.show_screencap()
-
-        # 连接设备
-        self.adb.connect("127.0.0.1:7555")
-        # self.adb.connect("5e49ca6b")
-        # 初始化转换工具
-        self.conver = Size(self.adb.screen_size())
-
+        # 屏幕截图
+        self.show_screen()
+        # 自动推关
         self.auto_challenge()
 
-    def show_screencap(self):
-        self.make_figure(self.adb.np_screencap())
+    def show_screen(self):
+        self.make_figure(adb.np_screencap())
 
     def make_figure(self, image):
         figure = plt.figure()
@@ -52,26 +45,26 @@ class AFK:
         """
         h, w = template.shape[:2]
 
-        self.adb.screencap()
+        adb.save_screencap()
 
-        screencap = cv2.imread("sc.png", 0)
+        screencast = cv2.imread("/img/sc.png", 0)
 
         # 模板匹配
-        result = cv2.matchTemplate(screencap, template, cv2.TM_CCOEFF_NORMED)
+        result = cv2.matchTemplate(screencast, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
         print(min_val, max_val, min_loc, max_loc)
 
-        if (max_val < 0.5):
+        if max_val < 0.5:
             return
 
-        img2 = screencap.copy()
+        img2 = screencast.copy()
 
         x, y = max_loc
 
         # 计算中心点
-        centerX = x + w / 2
-        centerY = y + h / 2
+        center_x = x + w / 2
+        center_y = y + h / 2
 
         if debug:
             bottom_right = (x + w, y + h)
@@ -79,27 +72,22 @@ class AFK:
             plt.imshow(img2)
             plt.show()
 
-        return centerX, centerY
+        return center_x, center_y
 
     def auto_challenge(self):
 
-        print("开始")
-        print(self.conver.width(356))
-        print(self.conver.height(1088))
-        print("结束")
-
         # 点击挑战首领
-        self.adb.click(self.conver.width(356), self.conver.height(1088))
+        adb.click(key.challenge_boss)
         time.sleep(1)
         for i in range(100):
-            # 点击挑战首领(优势互会出现)
-            self.adb.click(self.conver.width(356), self.conver.height(980))
+            # 点击弹窗中的挑战首领(有时会出现)
+            adb.click(key.second_challenge_boss)
             time.sleep(1)
             # 点击战斗
-            self.adb.click(self.conver.width(356), self.conver.height(1223))
+            adb.click(key.battle)
             time.sleep(15)
             # 点击重试
-            self.adb.click(self.conver.width(356), self.conver.height(1140))
+            adb.click(key.retry)
             time.sleep(1)
 
 

@@ -91,7 +91,7 @@ class AFK:
                     print("战斗失败, 即将重新挑战!")
                     break
                 time.sleep(1)
-            # 点击重新挑战
+            # 点击再次挑战
             adb.click(key.retry)
             time.sleep(1)
 

@@ -1,5 +1,6 @@
 from skill.afk_helper.adb import adb
 
+
 class Size:
     """
     屏幕尺寸转换类, 基于 720 1280 进行屏幕坐标等比例缩放

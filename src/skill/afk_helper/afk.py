@@ -1,14 +1,10 @@
-import os
-import subprocess
-import cv2
-import numpy as np
-import PIL
-import matplotlib.pyplot as plt
 import time
 
-from skill.afk_helper.adb import adb
-from skill.afk_helper.size import size
+import cv2
+import matplotlib.pyplot as plt
+
 from skill.afk_helper import key
+from skill.afk_helper.adb import adb
 
 
 class AFK:

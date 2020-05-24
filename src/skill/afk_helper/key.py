@@ -8,8 +8,8 @@ challenge_boss = {"name": "挑战首领", "point": {
 }}
 # 弹出上的挑战首领(有时候会出现)
 second_challenge_boss = {"name": "弹窗上的挑战首领", "point": {
-    "default": (size.width(356), size.height(1223)),
-    "720x1280": (356, 1223),
+    "default": (size.width(356), size.height(980)),
+    "720x1280": (356, 980),
     "1080x2340": (539, 1673),
 }}
 # 战斗

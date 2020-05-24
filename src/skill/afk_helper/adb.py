@@ -23,7 +23,9 @@ class Adb:
 
     def __init__(self, device):
         self.device = device
+        self.ratio_key = ""
         self.__screen_size = (0, 0)
+        self.get_screen_size()
         self.connect(device)
 
     def get_screen_size(self):
@@ -48,6 +50,8 @@ class Adb:
             else:
                 width = a
                 height = b
+
+            self.ratio_key = ratio_key = str(width) + "x" + str(height)
 
             print("成功获取屏幕高度 ", "屏幕宽度", width, "屏幕高度", height)
 

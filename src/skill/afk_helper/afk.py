@@ -87,7 +87,8 @@ class AFK:
                 img2 = zcv.imread("./img/1.png")
                 d = zcv.bf_distance(img1, img2)
                 print(d)
-                if d == 31.575305938720703:
+                print("distance", key.retry['distance'][adb.ratio_key])
+                if str(d) == key.retry['distance'][adb.ratio_key]:
                     print("战斗失败, 即将重新挑战!")
                     break
                 time.sleep(1)

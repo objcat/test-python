@@ -20,7 +20,7 @@ class AFK:
         img1 = adb.cv_rgb_screencap()
         img2 = zcv.imread("./img/2.png")
 
-        # zcv.bf(img1, img2, True)
+        zcv.bf(img1, img2, True)
 
         # zcv.get_point_center(img1, img2, True)
 

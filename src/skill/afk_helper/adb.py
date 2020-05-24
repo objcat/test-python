@@ -5,10 +5,15 @@ import re
 import PIL
 import numpy as np
 
-from skill.afk_helper.config import *
+from skill.afk_helper import config
 
 
 class Adb:
+
+    def __init__(self, device):
+        self.device = device
+        self.__screen_size = (0, 0)
+        self.connect(device)
 
     def get_screen_size(self):
         """
@@ -17,7 +22,7 @@ class Adb:
         :return: (w, h)
         """
         if self.__screen_size == (0, 0):
-            size_str = os.popen(f"adb -s {self.__device} shell wm size").read()
+            size_str = os.popen(f"adb -s {self.device} shell wm size").read()
             m = re.search(r'(\d+)x(\d+)', size_str)
 
             a = int(m.group(1))
@@ -36,22 +41,20 @@ class Adb:
             print("成功获取屏幕高度 ", "屏幕宽度", width, "屏幕高度", height)
 
             if m:
-                return width, height
+                self.__screen_size = (width, height)
+                return self.__screen_size
+            else:
+                return 0, 0
+
         else:
             return self.__screen_size
-
-    def __init__(self, device):
-        self.__device = device
-        self.__screen_size = (0, 0)
-        self.connect(device)
 
     def np_screencap(self):
         """
         返回图片的 np.array
         :return: array
         """
-        print(f"adb -s {self.__device} exec-out screencap -p > sc.png")
-        os.system(f"adb -s {self.__device} exec-out screencap -p > sc.png")
+        os.system(f"adb -s {self.device} exec-out screencap -p > sc.png")
         return np.array(PIL.Image.open('sc.png'), dtype="uint8")
 
     def save_screencap(self):
@@ -59,7 +62,7 @@ class Adb:
         保存截图到本地
         :return:
         """
-        os.system(f"adb -s {self.__device} exec-out screencap -p > sc.png")
+        os.system(f"adb -s {self.device} exec-out screencap -p > sc.png")
 
     def click(self, key):
         """
@@ -68,16 +71,21 @@ class Adb:
         :return:
         """
         name = key["name"]
-        x, y = key["point"]
+        width, height = self.get_screen_size()
+        ratio_key = str(width) + "x" + str(height)
+        try:
+            x, y = key["point"][ratio_key]
+        except:
+            x, y = key["point"]["720x1280"]
 
         print(f"[{datetime.datetime.now()}] 点击{name} x={x} y={y}")
-        os.system(f"adb -s {self.__device} shell input tap {x} {y}")
+        os.system(f"adb -s {self.device} shell input tap {x} {y}")
 
     def connect(self, device):
-        os.system(f"adb connect {device}")
+        os.system(f"adb connect {self.device}")
 
     def disconnect(self):
         os.system("adb disconnect")
 
 
-adb = Adb(device)
+adb = Adb(config.device)

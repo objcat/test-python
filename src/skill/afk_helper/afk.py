@@ -72,19 +72,19 @@ class AFK:
 
     def auto_challenge(self):
 
-        # 点击挑战首领
-        adb.click(key.challenge_boss)
-        time.sleep(1)
         for i in range(100):
+            # 点击挑战首领
+            adb.click(key.challenge_boss)
+            time.sleep(1)
             # 点击弹窗中的挑战首领(有时会出现)
             adb.click(key.second_challenge_boss)
             time.sleep(1)
             # 点击战斗
             adb.click(key.battle)
-            time.sleep(17)
-            # 点击重试
-            adb.click(key.retry)
-            time.sleep(1)
+            time.sleep(25)
+            # 点击空白
+            adb.click(key.white_place)
+            time.sleep(2)
 
 
 if __name__ == '__main__':

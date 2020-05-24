@@ -9,7 +9,7 @@ from skill.afk_helper import config
 
 
 class Adb:
-    
+
     def __init__(self, device):
         self.device = device
         self.__screen_size = (0, 0)
@@ -54,15 +54,15 @@ class Adb:
         返回图片的 np.array
         :return: array
         """
-        os.system(f"adb -s {self.device} exec-out screencap -p > sc.png")
-        return np.array(PIL.Image.open('sc.png'), dtype="uint8")
+        os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
+        return np.array(PIL.Image.open('./img/sc.png'), dtype="uint8")
 
     def save_screencap(self):
         """
         保存截图到本地
         :return:
         """
-        os.system(f"adb -s {self.device} exec-out screencap -p > sc.png")
+        os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
 
     def click(self, key):
         """
@@ -76,7 +76,7 @@ class Adb:
         try:
             x, y = key["point"][ratio_key]
         except:
-            x, y = key["point"]["720x1280"]
+            x, y = key["point"]["default"]
 
         print(f"[{datetime.datetime.now()}] 点击{name} x={x} y={y}")
         os.system(f"adb -s {self.device} shell input tap {x} {y}")

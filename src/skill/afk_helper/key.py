@@ -1,3 +1,8 @@
+# description: 按键位置记录
+# date: 2020/5/24 21:34
+# author: objcat
+# version: 1.0
+
 from skill.afk_helper.size import size
 
 # 挑战首领

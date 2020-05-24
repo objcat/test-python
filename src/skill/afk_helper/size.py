@@ -1,3 +1,8 @@
+# description: 尺寸变化工具类
+# date: 2020/5/24 21:34
+# author: objcat
+# version: 1.0
+
 from skill.afk_helper.adb import adb
 
 

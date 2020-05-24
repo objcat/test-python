@@ -1,3 +1,8 @@
+# description: adb工具类
+# date: 2020/5/24 21:34
+# author: objcat
+# version: 1.0
+
 import datetime
 import os
 import re
@@ -10,6 +15,8 @@ import matplotlib.pyplot as plt
 import cv2
 
 from skill.afk_helper import config
+
+
 
 
 class Adb:

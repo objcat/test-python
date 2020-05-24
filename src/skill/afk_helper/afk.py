@@ -17,10 +17,17 @@ class AFK:
 
     # 开始
     def start(self):
-        img1 = adb.cv_rgb_screencap()
-        img2 = zcv.imread("./img/2.png")
+        # img1 = adb.cv_rgb_screencap()
+        # img2 = zcv.imread("./img/1.png")
 
-        zcv.bf(img1, img2, True)
+        self.auto_challenge2()
+
+
+        # for i in range(100):
+        #     zcv.bf(img1, img2, True)
+        #     time.sleep(3)
+
+
 
         # zcv.get_point_center(img1, img2, True)
 
@@ -40,7 +47,7 @@ class AFK:
 
     def auto_challenge(self):
         """
-        自动推图
+        自动推图 1.0
         :return:
         """
         for i in range(100):
@@ -55,6 +62,37 @@ class AFK:
             time.sleep(25)
             # 点击空白
             adb.click(key.white_place)
+            time.sleep(1)
+
+    def auto_challenge2(self):
+        """
+        自动推图 2.0 加入图像识别
+        :return:
+        """
+
+        # 点击挑战首领
+        adb.click(key.challenge_boss)
+        time.sleep(1)
+
+        for i in range(100):
+            # 点击弹窗中的挑战首领(有时会出现)
+            adb.click(key.second_challenge_boss)
+            time.sleep(1)
+            # 点击战斗
+            adb.click(key.battle)
+            time.sleep(10)
+            # 15截图等待结束
+            while 1:
+                img1 = adb.cv_rgb_screencap()
+                img2 = zcv.imread("./img/1.png")
+                d = zcv.bf_distance(img1, img2)
+                print(d)
+                if d == 31.575305938720703:
+                    print("战斗失败, 即将重新挑战!")
+                    break
+                time.sleep(1)
+            # 点击重新挑战
+            adb.click(key.retry)
             time.sleep(1)
 
 

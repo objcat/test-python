@@ -86,18 +86,16 @@ class Zcv:
         bf = cv2.BFMatcher(crossCheck=True)
         matches = bf.match(des1, des2)
         matches = sorted(matches, key=lambda x: x.distance)
-        img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches, None, flags=2)
-
-        # bf = cv2.BFMatcher()
-        # matches = bf.knnMatch(des1, des2, k=2)
-        # good = []
-        # for m, n in matches:
-        #     if m.distance < 0.75 * n.distance:
-        #         good.append([m])
-        # img3 = cv2.drawMatchesKnn(img1, kp1, img2, kp2, good, None, flags=2)
+        img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches[:10], None, flags=2)
 
         if debug:
             self.imshow(img3)
+
+        return matches
+
+    def bf_distance(self, img1, img2):
+        matches = self.bf(img1, img2, False)
+        return matches[0].distance
 
 
 zcv = Zcv()

@@ -3,7 +3,7 @@
 # author: objcat
 # version: 1.0
 
-from skill.afk_helper.size import size
+from plugin.afk_helper.size import size
 
 # 挑战首领
 challenge_boss = {"name": "挑战首领", "point": {

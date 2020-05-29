@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 import cv2
 
-from skill.afk_helper import config
+from plugin.afk_helper import config
 
 
 class Adb:
@@ -68,11 +68,11 @@ class Adb:
         :return: array
         """
         os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
-        return np.array(PIL.Image.open('./img/sc.png'), dtype="uint8")
+        return np.array(PIL.Image.open('img/sc.png'), dtype="uint8")
 
     def cv_rgb_screencap(self):
         os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
-        image = cv2.imread("./img/sc.png")
+        image = cv2.imread("img/sc.png")
         b, g, r = cv2.split(image)
         img_rgb = cv2.merge([r, g, b])
         return img_rgb

@@ -5,12 +5,9 @@
 
 import time
 
-import cv2
-import matplotlib.pyplot as plt
-
-from skill.afk_helper import key
-from skill.afk_helper.adb import adb
-from skill.afk_helper.zcv import zcv
+from plugin.afk_helper import key
+from plugin.afk_helper.adb import adb
+from plugin.afk_helper.zcv import zcv
 
 
 class AFK:
@@ -36,7 +33,6 @@ class AFK:
     def auto_challenge(self):
         """
         自动推图 1.0
-        :return:
         """
         for i in range(100):
             # 点击挑战首领
@@ -55,7 +51,6 @@ class AFK:
     def auto_challenge2(self):
         """
         自动推图 2.0 加入图像识别
-        :return:
         """
 
         # 点击挑战首领

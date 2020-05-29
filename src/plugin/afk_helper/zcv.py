@@ -6,8 +6,6 @@
 import cv2
 import matplotlib.pyplot as plt
 
-from skill.afk_helper.adb import adb
-
 
 class Zcv:
 

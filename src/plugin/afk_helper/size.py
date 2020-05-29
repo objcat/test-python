@@ -3,7 +3,7 @@
 # author: objcat
 # version: 1.0
 
-from skill.afk_helper.adb import adb
+from plugin.afk_helper.adb import adb
 
 
 class Size:

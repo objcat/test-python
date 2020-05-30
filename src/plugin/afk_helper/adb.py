@@ -77,6 +77,28 @@ class Adb:
         img_rgb = cv2.merge([r, g, b])
         return img_rgb
 
+    def cv_rgb_screencap_cut_x1_y1_x2_y2(self, cut_point):
+        img_rgb = self.cv_rgb_screencap()
+        x1, y1, x2, y2 = cut_point
+        img_cut = img_rgb[y1:y2, x1:x2]
+        return img_cut
+
+    def cv_rgb_screencap_cut_ratio_num(self, ratio_num:str):
+        """
+        根据比例截取 0 ~ 1
+        :param ratio_num: 截取高度开始比例 比例 * 高度 起始
+        :return:
+        """
+        if ratio_num == 0:
+            return self.cv_rgb_screencap()
+
+        screen_width = self.__screen_size[0]
+        screen_height = self.__screen_size[1]
+        cut_point = 0, int(float(ratio_num) * int(screen_height)), screen_width, screen_height
+        print("cut_point", cut_point)
+        cut_img = self.cv_rgb_screencap_cut_x1_y1_x2_y2(cut_point)
+        return cut_img
+
     def pl_screencap(self):
         os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
         return plt.imread("./img/sc.png")
@@ -89,20 +111,24 @@ class Adb:
         os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
 
     def click(self, key):
+        from plugin.afk_helper.key_model import KeyModel
         """
         点击按键
         :param key: 按键指令 在key.py中进行设置
         :return:
         """
-        name = key["name"]
-        width, height = self.get_screen_size()
-        try:
-            x, y = key["point"][self.ratio_key]
-        except:
-            x, y = key["point"]["default"]
+        key: KeyModel
 
+        name = key.name
+        width, height = self.get_screen_size()
+        x, y = key.point
         self.log(f"点击{name} x={x} y={y}")
         os.system(f"adb -s {self.device} shell input tap {x} {y}")
+
+    def swipe(self, key):
+        x1, y1, x2, y2 = key
+        self.log(f"滑动屏幕 从 {x1,y1} 到 {x2, y2}")
+        os.system(f"adb -s {self.device} shell input swipe {x1} {y1} {x2} {y2}")
 
     def log(self, text):
         print(f"[{datetime.datetime.now()}] {text}")

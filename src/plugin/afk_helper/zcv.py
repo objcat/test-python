@@ -92,6 +92,7 @@ class Zcv:
 
     def bf_distance(self, img1, img2):
         matches = self.bf(img1, img2, False)
+        # print(matches)
         return matches[0].distance
 
 

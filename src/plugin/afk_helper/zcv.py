@@ -88,12 +88,13 @@ class Zcv:
         if debug:
             self.imshow(img3)
 
-        return matches
+        return matches, kp1
 
     def bf_distance(self, img1, img2):
-        matches = self.bf(img1, img2, False)
-        # print(matches)
-        return matches[0].distance
+        matches, kp1 = self.bf(img1, img2, False)
+        queryIdx = matches[0].queryIdx
+        kp = kp1[queryIdx]
+        return matches[0].distance, kp.pt
 
 
 zcv = Zcv()

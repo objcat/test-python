@@ -83,11 +83,13 @@ class AFK:
             waiting_key = self.waiting_keys([key_list.retry, key_list.next])
 
             if waiting_key == key_list.retry:
+                adb.log("战斗失败, 即将重新挑战!")
                 adb.click(waiting_key)
                 time.sleep(1)
                 continue
 
             if waiting_key == key_list.next:
+                adb.log("挑战成功, 即将进入下一关!")
                 adb.click(waiting_key)
                 time.sleep(1)
                 continue
@@ -113,41 +115,39 @@ class AFK:
             time.sleep(10)
 
             # 10秒后开始截图监听结束状态
-            waiting_key = self.waiting_keys([key_list.retry, key_list.king_tower_continue])
+            # waiting_key = self.waiting_keys([key_list.retry, key_list.king_tower_continue])
+            waiting_key = self.waiting_keys_2([key_list.retry, key_list.king_tower_continue])
 
             if waiting_key is key_list.retry:
+                adb.log("战斗失败, 即将重新挑战!")
                 adb.click(waiting_key)
                 time.sleep(1)
                 self.king_tower_flag = 1
                 continue
 
             if waiting_key is key_list.king_tower_continue:
+                adb.log("挑战王座之塔成功, 即将点击屏幕")
                 adb.click(waiting_key)
                 time.sleep(1)
                 self.king_tower_flag = 0
                 continue
 
     def waiting_keys(self, keys):
-
-        i = {}
-
         # 建立计数索引
+        i = {}
         for key in keys:
             key: KeyModel
             i[key.en_name] = 0
         while 1:
             flag = 0
             for key in keys:
-
-                # img1 = adb.cv_rgb_screencap()
-
                 cut_ratio = 0
                 if key.cut_ratio is not None:
                     cut_ratio = key.cut_ratio
 
                 img1 = adb.cv_rgb_screencap_cut_ratio_num(cut_ratio)
                 img2 = zcv.imread(key.img)
-                d = zcv.bf_distance(img1, img2)
+                d, pt = zcv.bf_distance(img1, img2)
 
                 i[key.en_name] += 1
 
@@ -156,17 +156,36 @@ class AFK:
 
                 adb.log(f"识别到特征 {d} 目标特征 {key.distance}")
 
-                if str(d) == key_list.retry.distance:
-                    adb.log("战斗失败, 即将重新挑战!")
+                if str(d) is key_list.retry.distance:
                     return key_list.retry
 
-                if str(d) == key_list.next.distance:
-                    adb.log("挑战成功, 即将进入下一关!")
+                if str(d) is key_list.next.distance:
                     return key_list.next
 
-                if str(d) == key_list.king_tower_continue.distance:
-                    adb.log("挑战王座之塔成功, 即将点击屏幕")
+                if str(d) is key_list.king_tower_continue.distance:
                     return key_list.king_tower_continue
+
+    def waiting_keys_2(self, keys):
+        # 建立计数索引
+        for key in keys:
+            key: KeyModel
+        while 1:
+            flag = 0
+            for key in keys:
+                cut_ratio = 0
+                if key.cut_ratio is not None:
+                    cut_ratio = key.cut_ratio
+
+                img1 = adb.cv_rgb_screencap_cut_ratio_num(cut_ratio)
+                img2 = zcv.imread(key.img)
+                d, pt = zcv.bf_distance(img1, img2)
+
+                adb.log(f"特征点{d}")
+                if d <= 40:
+                    adb.log(f"匹配到坐标点为 {pt}")
+                    key.point = pt
+                    return key
+                    pass
 
 
 if __name__ == '__main__':

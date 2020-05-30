@@ -119,8 +119,6 @@ class AFK:
                 if key.cut_ratio is not None:
                     cut_ratio = key.cut_ratio
 
-                print(cut_ratio)
-
                 img1 = adb.cv_rgb_screencap_cut_ratio_num(cut_ratio)
                 img2 = zcv.imread(key.img)
                 d = zcv.bf_distance(img1, img2)
@@ -130,8 +128,7 @@ class AFK:
                 if i[key.en_name] >= 35:
                     adb.log(f'特征匹配失败, 请在{key.en_name}的distance字段中加入或替换, "{adb.ratio_key}": "{d}"')
 
-                adb.log(f"目标特征 {d}")
-                adb.log(f"按钮特征 {key.distance}")
+                adb.log(f"识别到特征 {d} 目标特征 {key.distance}")
 
                 if str(d) == key_list.retry.distance:
                     adb.log("战斗失败, 即将重新挑战!")

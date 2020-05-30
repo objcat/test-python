@@ -95,7 +95,6 @@ class Adb:
         screen_width = self.__screen_size[0]
         screen_height = self.__screen_size[1]
         cut_point = 0, int(float(ratio_num) * int(screen_height)), screen_width, screen_height
-        print("cut_point", cut_point)
         cut_img = self.cv_rgb_screencap_cut_x1_y1_x2_y2(cut_point)
         return cut_img
 

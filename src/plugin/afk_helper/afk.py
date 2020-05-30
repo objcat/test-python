@@ -79,27 +79,53 @@ class AFK:
             # 点击战斗
             adb.click(key_list.battle)
             time.sleep(10)
-            # 10秒后开始截图监听成功或失败
-            self.waiting_keys([key_list.retry, key_list.next])
+            # 10秒后开始截图监听结束状态
+            waiting_key = self.waiting_keys([key_list.retry, key_list.next])
+
+            if waiting_key == key_list.retry:
+                adb.click(waiting_key)
+                time.sleep(1)
+                continue
+
+            if waiting_key == key_list.next:
+                adb.click(waiting_key)
+                time.sleep(1)
+                continue
+
+    king_tower_flag = 0
 
     def auto_challenge_king_tower(self):
 
         for i in range(100):
-            # 滑动到最下方
-            swipe_key = (100, 500, 100, 1000)
-            adb.swipe(swipe_key)
-            time.sleep(1)
 
-            # 点击挑战王座之塔
-            adb.click(key_list.king_challenge)
-            time.sleep(1)
+            if self.king_tower_flag == 0:
+                # 滑动到最下方
+                swipe_key = (100, 500, 100, 1000)
+                adb.swipe(swipe_key)
+                time.sleep(1)
+
+                # 点击挑战王座之塔
+                adb.click(key_list.king_challenge)
+                time.sleep(1)
 
             # 点击挑战
             adb.click(key_list.battle)
             time.sleep(10)
 
-            # 10秒后开始截图监听成功或失败
-            self.waiting_keys([key_list.retry, key_list.king_tower_continue])
+            # 10秒后开始截图监听结束状态
+            waiting_key = self.waiting_keys([key_list.retry, key_list.king_tower_continue])
+
+            if waiting_key is key_list.retry:
+                adb.click(waiting_key)
+                time.sleep(1)
+                self.king_tower_flag = 1
+                continue
+
+            if waiting_key is key_list.king_tower_continue:
+                adb.click(waiting_key)
+                time.sleep(1)
+                self.king_tower_flag = 0
+                continue
 
     def waiting_keys(self, keys):
 
@@ -132,24 +158,15 @@ class AFK:
 
                 if str(d) == key_list.retry.distance:
                     adb.log("战斗失败, 即将重新挑战!")
-                    flag = 1
-                    adb.click(key)
-                    time.sleep(1)
+                    return key_list.retry
 
                 if str(d) == key_list.next.distance:
                     adb.log("挑战成功, 即将进入下一关!")
-                    flag = 1
-                    adb.click(key)
-                    time.sleep(1)
+                    return key_list.next
 
                 if str(d) == key_list.king_tower_continue.distance:
                     adb.log("挑战王座之塔成功, 即将点击屏幕")
-                    flag = 1
-                    adb.click(key)
-                    time.sleep(1)
-
-            if flag == 1:
-                break
+                    return key_list.king_tower_continue
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ class AFK:
         # 自动推图2.0
         # self.auto_challenge2()
 
-        self.auto_challenge_king_tower()
+        # self.auto_challenge_king_tower()
 
         # self.waiting_keys([key_list.retry, key_list.king_tower_continue])
 
@@ -29,6 +29,7 @@ class AFK:
 
         # 屏幕截图
         # self.show_screen()
+        # zcv.imshow(adb.cv_rgb_screencap_cut_ratio_num(0.5))
 
         # img1 = adb.cv_rgb_screencap()
         # img1 = adb.cv_rgb_screencap_cut((352, 1885, 731, 2017))
@@ -102,9 +103,9 @@ class AFK:
 
             if self.king_tower_flag == 0:
                 # 滑动到最下方
-                swipe_key = (100, 500, 100, 1000)
-                adb.swipe(swipe_key)
-                time.sleep(1)
+                # swipe_key = (100, 500, 100, 1000)
+                # adb.swipe(swipe_key)
+                # time.sleep(1)
 
                 # 点击挑战王座之塔
                 adb.click(key_list.king_challenge)
@@ -128,7 +129,7 @@ class AFK:
             if waiting_key is key_list.king_tower_continue:
                 adb.log("挑战王座之塔成功, 即将点击屏幕")
                 adb.click(waiting_key)
-                time.sleep(1)
+                time.sleep(2)
                 self.king_tower_flag = 0
                 continue
 
@@ -156,13 +157,13 @@ class AFK:
 
                 adb.log(f"识别到特征 {d} 目标特征 {key.distance}")
 
-                if str(d) is key_list.retry.distance:
+                if str(d) == key_list.retry.distance:
                     return key_list.retry
 
-                if str(d) is key_list.next.distance:
+                if str(d) == key_list.next.distance:
                     return key_list.next
 
-                if str(d) is key_list.king_tower_continue.distance:
+                if str(d) == key_list.king_tower_continue.distance:
                     return key_list.king_tower_continue
 
     def waiting_keys_2(self, keys):
@@ -186,8 +187,11 @@ class AFK:
                     key.point = pt
                     return key
                     pass
+                time.sleep(1)
 
 
 if __name__ == '__main__':
     afk = AFK()
     afk.start()
+
+afk = AFK()

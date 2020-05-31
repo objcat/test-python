@@ -37,9 +37,12 @@ class KeyModel:
                     try:
                         self_dict[key] = json[key][adb.ratio_key]
                     except:
+                        self_dict[key] = None
                         pass
             except:
                 pass
+
+
 
 
 class KeyList:
@@ -59,6 +62,8 @@ class KeyList:
         for key in self_dict:
             self_dict[key] = KeyModel(keymap_dict[key])
         pass
+
+        print(self.__dict__)
 
 
 key_list = KeyList(KeyMap)

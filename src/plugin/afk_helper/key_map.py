@@ -81,7 +81,7 @@ class KeyMap:
         "en_name": "king_challenge",
         "point": {
             "default": (size.width(356), size.height(1223)),
-            "720x1280": (356, 1223),
+            "720x1280": (349, 890),
             "1080x2340": (533, 1990),
         }
     }
@@ -101,6 +101,7 @@ class KeyMap:
             "1080x2340": "20.784608840942383"
         },
         "cut_ratio": {
+
             "1080x2340": "0.7"
         }
     }

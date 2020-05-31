@@ -20,11 +20,17 @@ from plugin.afk_helper import config
 class Adb:
 
     def __init__(self, device):
+        self.adb = "adb"
+        # self.adb = ".\\mumu\\adb_server"
         self.device = device
         self.ratio_key = ""
         self.__screen_size = (0, 0)
         self.get_screen_size()
         self.connect(device)
+
+        shell = f"{self.adb} -s {self.device} exec-out screencap -p > ./img/sc.png"
+        print(shell)
+
 
     def get_screen_size(self):
         """
@@ -33,7 +39,11 @@ class Adb:
         :return: (w, h)
         """
         if self.__screen_size == (0, 0):
-            size_str = os.popen(f"adb -s {self.device} shell wm size").read()
+            print(self.adb)
+            shell = f"{self.adb} -s {self.device} shell wm size"
+            print(shell)
+            size_str = os.popen(shell).read()
+            print(size_str)
             m = re.search(r'(\d+)x(\d+)', size_str)
 
             a = int(m.group(1))
@@ -67,11 +77,14 @@ class Adb:
         返回图片的 np.array
         :return: array
         """
-        os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
+        shell = f"{self.adb} -s {self.device} exec-out screencap -p > ./img/sc.png"
+        print(shell)
+        os.system(shell)
         return np.array(PIL.Image.open('img/sc.png'), dtype="uint8")
 
     def cv_rgb_screencap(self):
-        os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
+        shell = f"{self.adb} -s {self.device} exec-out screencap -p > ./img/sc.png"
+        os.system(shell)
         image = cv2.imread("img/sc.png")
         b, g, r = cv2.split(image)
         img_rgb = cv2.merge([r, g, b])
@@ -94,12 +107,15 @@ class Adb:
 
         screen_width = self.__screen_size[0]
         screen_height = self.__screen_size[1]
+
+        print(ratio_num);
+
         cut_point = 0, int(float(ratio_num) * int(screen_height)), screen_width, screen_height
         cut_img = self.cv_rgb_screencap_cut_x1_y1_x2_y2(cut_point)
         return cut_img
 
     def pl_screencap(self):
-        os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
+        os.system(f"{self.adb} -s {self.device} exec-out screencap -p > ./img/sc.png")
         return plt.imread("./img/sc.png")
 
     def save_screencap(self):
@@ -107,7 +123,7 @@ class Adb:
         保存截图到本地
         :return:
         """
-        os.system(f"adb -s {self.device} exec-out screencap -p > ./img/sc.png")
+        os.system(f"{self.adb} -s {self.device} exec-out screencap -p > ./img/sc.png")
 
     def click(self, key):
         from plugin.afk_helper.key_model import KeyModel
@@ -122,21 +138,21 @@ class Adb:
         width, height = self.get_screen_size()
         x, y = key.point
         self.log(f"点击{name} x={x} y={y}")
-        os.system(f"adb -s {self.device} shell input tap {x} {y}")
+        os.system(f"{self.adb} -s {self.device} shell input tap {x} {y}")
 
     def swipe(self, key):
         x1, y1, x2, y2 = key
         self.log(f"滑动屏幕 从 {x1,y1} 到 {x2, y2}")
-        os.system(f"adb -s {self.device} shell input swipe {x1} {y1} {x2} {y2}")
+        os.system(f"{self.adb} -s {self.device} shell input swipe {x1} {y1} {x2} {y2}")
 
     def log(self, text):
         print(f"[{datetime.datetime.now()}] {text}")
 
     def connect(self, device):
-        os.system(f"adb connect {self.device}")
+        os.system(f"{self.adb} connect {self.device}")
 
     def disconnect(self):
-        os.system("adb disconnect")
+        os.system(f"{self.adb} disconnect")
 
 
 adb = Adb(config.device)

@@ -6,14 +6,10 @@
 import datetime
 import os
 import re
-
 import PIL
 import numpy as np
-
 import matplotlib.pyplot as plt
-
 import cv2
-
 from plugin.afk_helper import config
 
 
@@ -115,12 +111,12 @@ class Adb:
         os.system(f"{self.adb} -s {self.device} exec-out screencap -p > ./img/sc.png")
 
     def click(self, key):
-        from plugin.afk_helper.key_model import KeyModel
-        """
-        点击按键
+        """点击按键
         :param key: 按键指令 在key.py中进行设置
         :return:
         """
+
+        from plugin.afk_helper.key_model import KeyModel
         key: KeyModel
 
         name = key.name

@@ -10,7 +10,9 @@ adb_path = "adb" # adb配置环境变量后
 
 # 设备/地址
 
-device = "127.0.0.1:7555" # 网易mumu
-# device = "5e49ca6b" # 我的手机
+# 网易mumu
+# device = "127.0.0.1:7555"
+# 我的手机
+device = "5e49ca6b"
 
 

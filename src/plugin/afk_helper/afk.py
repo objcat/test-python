@@ -47,6 +47,18 @@ class AFK:
     def show_screen(self):
         zcv.imshow(adb.cv_rgb_screencap())
 
+    def make_sift_line(self):
+        img1 = adb.cv_rgb_screencap()
+        img2 = zcv.imread("./img/next.png")
+        zcv.bf(img1, img2, True)
+
+    def log_sift_distance(self):
+        img1 = adb.cv_rgb_screencap()
+        img2 = zcv.imread("./img/next.png")
+        d, pt = zcv.bf_distance(img1, img2)
+        print(d)
+        print(pt)
+
     def auto_challenge(self):
         """自动推图1.0
         使用了固定坐标作为按钮定位点
@@ -72,32 +84,37 @@ class AFK:
         :return:
         """
 
+        retry_flag = 0
+
         # 点击挑战首领
         adb.click(key_list.challenge_boss)
         time.sleep(1)
 
         for i in range(100):
-            # 点击弹窗中的挑战首领(有时会出现)
-            adb.click(key_list.second_challenge_boss)
-            time.sleep(1)
+            if retry_flag == 0:
+                # 点击弹窗中的挑战首领(有时会出现)
+                adb.click(key_list.second_challenge_boss)
+                time.sleep(2)
             # 点击战斗
             adb.click(key_list.battle)
             time.sleep(10)
             # 10秒后开始截图监听结束状态
             waiting_key = self.waiting_keys([key_list.retry, key_list.next])
+            # waiting_key = self.waiting_keys_2([key_list.retry, key_list.next])
 
             if waiting_key == key_list.retry:
                 adb.log("战斗失败, 即将重新挑战!")
                 adb.click(waiting_key)
+                retry_flag = 1
                 time.sleep(1)
                 continue
 
             if waiting_key == key_list.next:
                 adb.log("挑战成功, 即将进入下一关!")
                 adb.click(waiting_key)
+                retry_flag = 0
                 time.sleep(1)
                 continue
-
 
     def auto_challenge_king_tower(self):
         """自动挑战王座之塔

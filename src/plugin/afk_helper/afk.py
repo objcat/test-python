@@ -20,6 +20,7 @@ class AFK:
 
         # 自动推图2.0
         # self.auto_challenge2()
+        # stop = True
 
         # self.auto_challenge_king_tower()
 
@@ -47,8 +48,9 @@ class AFK:
         zcv.imshow(adb.cv_rgb_screencap())
 
     def auto_challenge(self):
-        """
-        自动推图 1.0
+        """自动推图1.0
+        使用了固定坐标作为按钮定位点
+        :return:
         """
         for i in range(100):
             # 点击挑战首领
@@ -65,8 +67,9 @@ class AFK:
             time.sleep(1)
 
     def auto_challenge2(self):
-        """
-        自动推图 2.0 加入图像识别
+        """自动推图2.0
+        加入了图像识别技术
+        :return:
         """
 
         # 点击挑战首领
@@ -95,13 +98,17 @@ class AFK:
                 time.sleep(1)
                 continue
 
-    king_tower_flag = 0
 
     def auto_challenge_king_tower(self):
+        """自动挑战王座之塔
+        :return:
+        """
+
+        king_tower_flag = 0
 
         for i in range(100):
 
-            if self.king_tower_flag == 0:
+            if king_tower_flag == 0:
                 # 滑动到最下方
                 # swipe_key = (100, 500, 100, 1000)
                 # adb.swipe(swipe_key)
@@ -123,17 +130,22 @@ class AFK:
                 adb.log("战斗失败, 即将重新挑战!")
                 adb.click(waiting_key)
                 time.sleep(1)
-                self.king_tower_flag = 1
+                king_tower_flag = 1
                 continue
 
             if waiting_key is key_list.king_tower_continue:
                 adb.log("挑战王座之塔成功, 即将点击屏幕")
                 adb.click(waiting_key)
                 time.sleep(2)
-                self.king_tower_flag = 0
+                king_tower_flag = 0
                 continue
 
     def waiting_keys(self, keys):
+        """流程识别1.0
+        匹配distance, 如果与key_model中的distance相等, 就说明是一个key
+        :param keys:
+        :return:
+        """
         # 建立计数索引
         i = {}
         for key in keys:
@@ -167,6 +179,12 @@ class AFK:
                     return key_list.king_tower_continue
 
     def waiting_keys_2(self, keys):
+        """流程识别2.0 (1.0进化方法)
+        开启一个for循环匹配keys中img的特征, 如果特征相似度比较高, 就返回那个key, 并且把该特征对象的坐标(一般是按钮的坐标)赋值给key
+        从而key可以进行点击操作
+        :param keys: key的数组, 可以同时监控多个key
+        :return: KeyModel
+        """
         # 建立计数索引
         for key in keys:
             key: KeyModel
@@ -181,7 +199,7 @@ class AFK:
                 img2 = zcv.imread(key.img)
                 d, pt = zcv.bf_distance(img1, img2)
 
-                adb.log(f"特征点{d}")
+                adb.log(f"开始匹配{key.en_name} 特征点{d}")
                 if d <= 40:
                     adb.log(f"匹配到坐标点为 {pt}")
                     key.point = pt

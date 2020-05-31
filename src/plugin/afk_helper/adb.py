@@ -20,17 +20,12 @@ from plugin.afk_helper import config
 class Adb:
 
     def __init__(self, device):
-        self.adb = "adb"
-        # self.adb = ".\\mumu\\adb_server"
+        self.adb = config.adb_path
         self.device = device
         self.ratio_key = ""
         self.__screen_size = (0, 0)
         self.get_screen_size()
         self.connect(device)
-
-        shell = f"{self.adb} -s {self.device} exec-out screencap -p > ./img/sc.png"
-        print(shell)
-
 
     def get_screen_size(self):
         """
@@ -39,11 +34,8 @@ class Adb:
         :return: (w, h)
         """
         if self.__screen_size == (0, 0):
-            print(self.adb)
             shell = f"{self.adb} -s {self.device} shell wm size"
-            print(shell)
             size_str = os.popen(shell).read()
-            print(size_str)
             m = re.search(r'(\d+)x(\d+)', size_str)
 
             a = int(m.group(1))
@@ -96,7 +88,7 @@ class Adb:
         img_cut = img_rgb[y1:y2, x1:x2]
         return img_cut
 
-    def cv_rgb_screencap_cut_ratio_num(self, ratio_num:str):
+    def cv_rgb_screencap_cut_ratio_num(self, ratio_num: str):
         """
         根据比例截取 0 ~ 1
         :param ratio_num: 截取高度开始比例 比例 * 高度 起始
@@ -107,9 +99,6 @@ class Adb:
 
         screen_width = self.__screen_size[0]
         screen_height = self.__screen_size[1]
-
-        print(ratio_num);
-
         cut_point = 0, int(float(ratio_num) * int(screen_height)), screen_width, screen_height
         cut_img = self.cv_rgb_screencap_cut_x1_y1_x2_y2(cut_point)
         return cut_img
@@ -142,7 +131,7 @@ class Adb:
 
     def swipe(self, key):
         x1, y1, x2, y2 = key
-        self.log(f"滑动屏幕 从 {x1,y1} 到 {x2, y2}")
+        self.log(f"滑动屏幕 从 {x1, y1} 到 {x2, y2}")
         os.system(f"{self.adb} -s {self.device} shell input swipe {x1} {y1} {x2} {y2}")
 
     def log(self, text):

@@ -63,7 +63,7 @@ class KeyList:
             self_dict[key] = KeyModel(keymap_dict[key])
         pass
 
-        print(self.__dict__)
+        print("初始化key_list成功", self.__dict__)
 
 
 key_list = KeyList(KeyMap)

@@ -16,11 +16,11 @@ class User:
 class Zsq3:
 
     def __init__(self, db_path):
-        self.db = sqlite3.connect(db_path)
-        self.cursor = self.db.cursor()
+        self.con = sqlite3.connect(db_path)
+        self.cur = self.con.cursor()
 
     def close(self):
-        self.db.close()
+        self.con.close()
 
     def insert(self, obj):
         """插入对象
@@ -30,11 +30,37 @@ class Zsq3:
         """
         sql = self.__make_insert_sql(obj, True)
         try:
-            self.db.execute(sql)
-            self.db.commit()
+            self.con.execute(sql)
+            self.con.commit()
             return True
-        except:
+        except Exception as e:
+            print(e)
             return False
+
+    def delete_by_key_value(self, classz, **kwargs):
+        """根据key删除表中数据
+        :param classz: 类 (表名)
+        :param kwargs: key value
+        :return: 是否删除成功
+        """
+        table = classz.__name__.lower()
+        key = kwargs['key']
+        value = "'" + str(kwargs['value']) + "'"
+        sql = f"delete from {table} where {key}={value}"
+        try:
+            self.con.execute(sql)
+            self.con.commit()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
+    def update_by_key_value(self, classz, **kwargs):
+        table = classz.__name__.lower()
+        key = kwargs['key']
+        value = "'" + str(kwargs['value']) + "'"
+        sql = f"update "
+        pass
 
     def select_all(self, classz):
         """查询全部
@@ -44,7 +70,7 @@ class Zsq3:
         """
         table = classz.__name__.lower()
         sql = f"select * from {table}"
-        arr = self.cursor.execute(sql).fetchall()
+        arr = self.cur.execute(sql).fetchall()
         result = []
         for tup in arr:
             obj = self.tuple_to_obj(tup, classz)
@@ -52,7 +78,7 @@ class Zsq3:
         return result
 
     def select_by_key_value(self, classz, **kwargs):
-        """查询对象, 可以附加一个条件 where key='value'
+        """根据key查询对象
         :param classz: 类 (表名)
         :param kwargs: key 字段名 value 值
         :return: object
@@ -62,7 +88,7 @@ class Zsq3:
         value = "'" + str(kwargs['value']) + "'"
         sql = f"select * from {table} where {key}={value}"
         print(sql)
-        tup = self.cursor.execute(sql).fetchone()
+        tup = self.cur.execute(sql).fetchone()
         table = classz.__name__.lower()
         obj = self.tuple_to_obj(tup, classz)
         return obj
@@ -151,7 +177,8 @@ create table if not exists user (
 );
     """
 
-    user = db.select_by_key_value(User, key='id', value=10)
+    # user = db.select_by_key_value(User, key='id', value=10)
+    db.delete_by_key_value(User, key='id', value=10)
 
     pass
 

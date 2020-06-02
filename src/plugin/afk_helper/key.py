@@ -6,9 +6,10 @@
 
 from plugin.afk_helper.key_map import KeyMap
 from plugin.afk_helper.adb import adb
+import json
 
 
-class KeyModel:
+class Key:
 
     def __init__(self, json=None):
 
@@ -43,24 +44,22 @@ class KeyModel:
                 pass
 
 
-
-
 class KeyList:
 
     def __init__(self, KeyMap):
-        self.challenge_boss = KeyModel()
-        self.second_challenge_boss = KeyModel()
-        self.battle = KeyModel()
-        self.retry = KeyModel()
-        self.next = KeyModel()
-        self.white_place = KeyModel()
-        self.king_challenge = KeyModel()
-        self.king_tower_continue = KeyModel()
+        self.challenge_boss = Key()
+        self.second_challenge_boss = Key()
+        self.battle = Key()
+        self.retry = Key()
+        self.next = Key()
+        self.white_place = Key()
+        self.king_challenge = Key()
+        self.king_tower_continue = Key()
 
         keymap_dict = KeyMap.__dict__
         self_dict = self.__dict__
         for key in self_dict:
-            self_dict[key] = KeyModel(keymap_dict[key])
+            self_dict[key] = Key(keymap_dict[key])
         pass
 
         print("初始化key_list成功", self.__dict__)

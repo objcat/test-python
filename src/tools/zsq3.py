@@ -103,7 +103,15 @@ class Zsq3:
         return obj
         pass
 
-    def tuple_to_obj(self, tup, classz):
+    def run_script(self, path):
+        f = open(path, "r", encoding='utf-8')
+        text = f.read()
+        self.con.executescript(text)
+
+        # self.con.executescript()
+
+    @staticmethod
+    def tuple_to_obj(tup, classz):
         """元组转化成对象
         :param tup: 元组
         :param classz: 类名
@@ -120,7 +128,8 @@ class Zsq3:
         obj.__dict__ = dic
         return obj
 
-    def make_insert_sql(self, obj, append_empty):
+    @staticmethod
+    def make_insert_sql(obj, append_empty):
         """构造插入sql
         :param obj: 对象
         :param allow_empty: 是否拼接空值
@@ -178,7 +187,8 @@ class Zsq3:
 
         return sql
 
-    def make_update_sql(self, obj, where, append_empty):
+    @staticmethod
+    def make_update_sql(obj, where, append_empty):
         """构建插入sql语句
         :param obj: 对象
         :param where: 条件
@@ -243,6 +253,8 @@ create table if not exists user (
     # 查
     # print(db.select_all(User))
     # print(db.select(User, "id='13'"))
+
+    db.run_script("./test.sql")
 
     pass
 

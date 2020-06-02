@@ -117,8 +117,8 @@ class Adb:
         :return:
         """
 
-        from plugin.afk_helper.key_model import KeyModel
-        key: KeyModel
+        from plugin.afk_helper.key import Key
+        key: Key
 
         name = key.name
         width, height = self.get_screen_size()

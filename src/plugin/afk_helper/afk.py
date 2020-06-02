@@ -7,7 +7,7 @@ import time
 
 from plugin.afk_helper.adb import adb
 from plugin.afk_helper.zcv import zcv
-from plugin.afk_helper.key_model import key_list, KeyModel, KeyList
+from plugin.afk_helper.key import key_list, Key, KeyList
 
 
 class AFK:
@@ -166,7 +166,7 @@ class AFK:
         # 建立计数索引
         i = {}
         for key in keys:
-            key: KeyModel
+            key: Key
             i[key.en_name] = 0
         while 1:
             flag = 0
@@ -204,7 +204,7 @@ class AFK:
         """
         # 建立计数索引
         for key in keys:
-            key: KeyModel
+            key: Key
         while 1:
             flag = 0
             for key in keys:

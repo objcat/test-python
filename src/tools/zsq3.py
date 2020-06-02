@@ -17,24 +17,80 @@ class Zsq3:
 
     def __init__(self, db_path):
         self.db = sqlite3.connect(db_path)
+        self.cursor = self.db.cursor()
 
     def close(self):
         self.db.close()
 
-    def execute(self, sql):
-        if sql == None:
-            print("sql不执行")
-            return False
-        self.db.execute(sql)
-        self.db.commit()
-
     def insert(self, obj):
+        """插入对象
+        表明为对象的所属类名
+        :param obj: 对象
+        :return: 是否插入成功
+        """
         sql = self.__make_insert_sql(obj, True)
-        self.execute(sql)
+        try:
+            self.db.execute(sql)
+            self.db.commit()
+            return True
+        except:
+            return False
+
+    def select_all(self, classz):
+        """查询全部
+        根据类来查询所属表中的所有数据
+        :param classz: 类 (表名)
+        :return: list
+        """
+        table = classz.__name__.lower()
+        sql = f"select * from {table}"
+        arr = self.cursor.execute(sql).fetchall()
+        result = []
+        for tup in arr:
+            obj = self.tuple_to_obj(tup, classz)
+            result.append(obj)
+        return result
+
+    def select_by_key_value(self, classz, **kwargs):
+        """查询对象, 可以附加一个条件 where key='value'
+        :param classz: 类 (表名)
+        :param kwargs: key 字段名 value 值
+        :return: object
+        """
+        table = classz.__name__.lower()
+        key = kwargs['key']
+        value = "'" + str(kwargs['value']) + "'"
+        sql = f"select * from {table} where {key}={value}"
+        print(sql)
+        tup = self.cursor.execute(sql).fetchone()
+        table = classz.__name__.lower()
+        obj = self.tuple_to_obj(tup, classz)
+        return obj
         pass
 
-    def __make_insert_sql(self, obj, checkNone):
+    def tuple_to_obj(self, tup, classz):
+        """元组转化成对象
+        :param tup: 元组
+        :param classz: 类名
+        :return: object
+        """
+        obj = classz()
+        # 对象转字典
+        dic = obj.__dict__
+        i = 0
+        for key in dic:
+            dic[key] = tup[i]
+            i += 1
+        # 字典回输
+        obj.__dict__ = dic
+        return obj
 
+    def __make_insert_sql(self, obj, allow_empty):
+        """根据obj构造插入sql
+        :param obj: 对象
+        :param allow_empty: 是否允许插入空值
+        :return: sql
+        """
         # 对象转字典
         dic = obj.__dict__
         print(dic)
@@ -58,7 +114,7 @@ class Zsq3:
         # 构造body
         body = "("
         for key in dic:
-            if checkNone:
+            if allow_empty:
                 if dic[key] != None:
                     body = body + key + ","
 
@@ -69,7 +125,7 @@ class Zsq3:
         body = body + ")" + " values ("
 
         for key in dic:
-            if checkNone:
+            if allow_empty:
                 if dic[key] != None:
                     body = body + "'" + dic[key] + "'" + ","
 
@@ -95,10 +151,7 @@ create table if not exists user (
 );
     """
 
-
-
-
-
+    user = db.select_by_key_value(User, key='id', value=10)
 
     pass
 

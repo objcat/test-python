@@ -23,7 +23,7 @@ class Zsq3:
 
     def execute(self, sql):
         if sql == None:
-            print("sql为空")
+            print("sql不执行")
             return False
         self.db.execute(sql)
         self.db.commit()
@@ -94,6 +94,9 @@ create table if not exists user (
 	age text default ''
 );
     """
+
+
+
 
 
 

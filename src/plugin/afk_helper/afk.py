@@ -106,14 +106,14 @@ class AFK:
                 adb.log("战斗失败, 即将重新挑战!")
                 adb.click(waiting_key)
                 retry_flag = 1
-                time.sleep(1)
+                time.sleep(2)
                 continue
 
             if waiting_key == key_list.next:
                 adb.log("挑战成功, 即将进入下一关!")
                 adb.click(waiting_key)
                 retry_flag = 0
-                time.sleep(1)
+                time.sleep(2)
                 continue
 
     def auto_challenge_king_tower(self):
@@ -146,7 +146,7 @@ class AFK:
             if waiting_key is key_list.retry:
                 adb.log("战斗失败, 即将重新挑战!")
                 adb.click(waiting_key)
-                time.sleep(1)
+                time.sleep(2)
                 king_tower_flag = 1
                 continue
 

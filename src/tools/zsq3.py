@@ -1,9 +1,10 @@
-# description: zsqlite
+# description: zsq3
 # date: 2020/6/2 2:10 下午
 # author: objcat
 # version: 1.0
 
 import sqlite3
+import json
 
 
 class User:
@@ -11,6 +12,9 @@ class User:
         self.id = None
         self.name = None
         self.age = None
+
+    def __str__(self) -> str:
+        return json.dumps(self.__dict__)
 
 
 class Zsq3:
@@ -28,7 +32,7 @@ class Zsq3:
         :param obj: 对象
         :return: 是否插入成功
         """
-        sql = self.__make_insert_sql(obj, True)
+        sql = self.make_insert_sql(obj, False)
         try:
             self.con.execute(sql)
             self.con.commit()
@@ -37,16 +41,14 @@ class Zsq3:
             print(e)
             return False
 
-    def delete_by_key_value(self, classz, **kwargs):
-        """根据key删除表中数据
+    def delete(self, classz, where):
+        """删除
         :param classz: 类 (表名)
-        :param kwargs: key value
+        :param where: 条件语句
         :return: 是否删除成功
         """
         table = classz.__name__.lower()
-        key = kwargs['key']
-        value = "'" + str(kwargs['value']) + "'"
-        sql = f"delete from {table} where {key}={value}"
+        sql = f"delete from {table} where " + where
         try:
             self.con.execute(sql)
             self.con.commit()
@@ -55,11 +57,21 @@ class Zsq3:
             print(e)
             return False
 
-    def update_by_key_value(self, classz, **kwargs):
-        table = classz.__name__.lower()
-        key = kwargs['key']
-        value = "'" + str(kwargs['value']) + "'"
-        sql = f"update "
+    def update(self, obj, where):
+        """更新
+        :param obj: 对象
+        :param where: 条件
+        :return: obj
+        """
+        table = obj.__class__.__name__.lower()
+        sql = self.make_update_sql(obj, where, False)
+        try:
+            self.con.execute(sql)
+            self.con.commit()
+            return True
+        except Exception as e:
+            print(e)
+            return False
         pass
 
     def select_all(self, classz):
@@ -77,17 +89,14 @@ class Zsq3:
             result.append(obj)
         return result
 
-    def select_by_key_value(self, classz, **kwargs):
-        """根据key查询对象
+    def select(self, classz, where):
+        """查询
         :param classz: 类 (表名)
-        :param kwargs: key 字段名 value 值
+        :param where: 条件
         :return: object
         """
         table = classz.__name__.lower()
-        key = kwargs['key']
-        value = "'" + str(kwargs['value']) + "'"
-        sql = f"select * from {table} where {key}={value}"
-        print(sql)
+        sql = f"select * from {table} where " + where
         tup = self.cur.execute(sql).fetchone()
         table = classz.__name__.lower()
         obj = self.tuple_to_obj(tup, classz)
@@ -111,10 +120,10 @@ class Zsq3:
         obj.__dict__ = dic
         return obj
 
-    def __make_insert_sql(self, obj, allow_empty):
-        """根据obj构造插入sql
+    def make_insert_sql(self, obj, append_empty):
+        """构造插入sql
         :param obj: 对象
-        :param allow_empty: 是否允许插入空值
+        :param allow_empty: 是否拼接空值
         :return: sql
         """
         # 对象转字典
@@ -140,9 +149,11 @@ class Zsq3:
         # 构造body
         body = "("
         for key in dic:
-            if allow_empty:
-                if dic[key] != None:
+            if not append_empty:
+                if dic[key] is not None:
                     body = body + key + ","
+            else:
+                body = body + key + ","
 
         # 如果最后一个字符是逗号: 切掉
         if body[len(body) - 1:] == ',':
@@ -151,8 +162,13 @@ class Zsq3:
         body = body + ")" + " values ("
 
         for key in dic:
-            if allow_empty:
+            if not append_empty:
                 if dic[key] != None:
+                    body = body + "'" + dic[key] + "'" + ","
+            else:
+                if dic[key] is None:
+                    body = body + "''" + ","
+                else:
                     body = body + "'" + dic[key] + "'" + ","
 
         # 如果最后一个字符是逗号: 切掉
@@ -160,6 +176,34 @@ class Zsq3:
             body = body[:-1]
         sql = header + body + ")"
 
+        return sql
+
+    def make_update_sql(self, obj, where, append_empty):
+        """构建插入sql语句
+        :param obj: 对象
+        :param where: 条件
+        :param append_empty: 是否拼接空值 None
+        :return: sql
+        """
+        table = obj.__class__.__name__.lower()
+        header = f"update {table} set "
+        body = ""
+        dic = obj.__dict__
+        print(dic)
+        for key in dic:
+            if not append_empty:
+                if dic[key] is not None:
+                    body = body + key + "=" + "'" + dic[key] + "'" + ","
+            else:
+                if dic[key] is None:
+                    body = body + key + "=" + "''" + ","
+                else:
+                    body = body + key + "=" + "'" + dic[key] + "'" + ","
+        # 如果最后一个字符是逗号: 切掉
+        if body[len(body) - 1:] == ',':
+            body = body[:-1]
+        sql = header + body + " where " + where
+        print(sql)
         return sql
 
 
@@ -178,7 +222,27 @@ create table if not exists user (
     """
 
     # user = db.select_by_key_value(User, key='id', value=10)
-    db.delete_by_key_value(User, key='id', value=10)
+    # re = db.delete_by_key_value(User, key='id', value=10)
+    # print(re)
+
+    # 增
+    # user = User()
+    # user.name = "lisi"
+    # user.age = '18'
+    #
+    # db.insert(user)
+
+    # 删
+    # db.delete(User, "id='11'")
+
+    # 改
+    # user = User()
+    # user.age = '996'
+    # db.update(user, "id='13'")
+
+    # 查
+    # print(db.select_all(User))
+    # print(db.select(User, "id='13'"))
 
     pass
 

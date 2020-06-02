@@ -21,11 +21,13 @@ def stop_all():
 show_screen_btn = tk.Button(window, text='展示屏幕', width=15, height=2, command=lambda: ztr.run('显示屏幕', afk.show_screen),
                             bg="white").pack()
 
-make_line_sift_btn = tk.Button(window, text='绘制特征线', width=15, height=2, command=lambda: ztr.run('绘制特征线', afk.make_line),
-                            bg="white").pack()
+make_line_sift_btn = tk.Button(window, text='绘制特征线', width=15, height=2,
+                               command=lambda: ztr.run('绘制特征线', afk.make_sift_line),
+                               bg="white").pack()
 
-get_distance_btn = tk.Button(window, text='打印特征', width=15, height=2, command=lambda: ztr.run('打印特征', afk.log_sift_distance),
-                            bg="white").pack()
+get_distance_btn = tk.Button(window, text='打印特征', width=15, height=2,
+                             command=lambda: ztr.run('打印特征', afk.log_sift_distance),
+                             bg="white").pack()
 
 auto_challenge_2_btn = tk.Button(window, text='自动挑战2.0', width=15, height=2,
                                  command=lambda: ztr.run('自动挑战2.0', afk.auto_challenge2), bg="white").pack()

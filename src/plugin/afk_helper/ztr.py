@@ -42,6 +42,9 @@ def stop_all():
     """
     # 终止所有线程
     for key in treadings:
-        stop_thread(treadings[key])
+        try:
+            stop_thread(treadings[key])
+        except Exception as e:
+            pass
     # 清空所有线程
     treadings.clear()

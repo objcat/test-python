@@ -32,6 +32,7 @@ class Adb:
         if self.__screen_size == (0, 0):
             shell = f"{self.adb} -s {self.device} shell wm size"
             size_str = os.popen(shell).read()
+            print(size_str)
             m = re.search(r'(\d+)x(\d+)', size_str)
 
             a = int(m.group(1))

@@ -5,7 +5,6 @@
 
 import time
 
-
 # lambda其实是一种函数的缩写
 
 # 1，lambda 函数不能包含命令，
@@ -35,8 +34,20 @@ map就是把数组中的每个值都传入函数, 然后批量进行处理
 m = map(lambda x: x ** x, [1, 2, 3, 4, 5])
 print(list(m))  # [1, 4, 27, 256, 3125]
 
+m = map(lambda x: x.replace('123', '456'), ['456', "456123"])
+print(list(m))
+
+
+def c_to_o(c):
+    o = {}
+    o['o'] = c
+    return o
+m = map(lambda x: c_to_o(x), ['456', "456123"])
+print(list(m))
+
 # 4.结合reduce使用 (首先取出1, 2个元素进行函数 然后用结果与第3个元素再次进行函数 以此类推)
 from functools import reduce, cmp_to_key
+
 m = reduce(lambda x, y: x + y, [1, 2, 3, 4])
 # m2 = sum([1, 2, 3, 4]) # 求和
 print(m)
@@ -52,7 +63,7 @@ print(m)
 # 排序元组使用第二个参数进行排序
 m = sorted([('a', '1'), ('f', '2'), ('b', '3')])
 
-cmp = lambda x, y:(x > y) - (x < y)
+cmp = lambda x, y: (x > y) - (x < y)
 # 通过lamda表达式让sorted根据每个元组中第二个元素进行排序
 m = sorted([('a', '1'), ('f', '2'), ('b', '3')], key=cmp_to_key(lambda x, y: cmp(x[1], y[1])))
 print(m)

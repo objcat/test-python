@@ -7,10 +7,10 @@ from plugin.afk_helper.size import size
 
 
 class KeyMap:
-
     # 挑战首领
     challenge_boss = {
         "name": "挑战首领",
+        "en_name": "challenge_boss",
         "point": {
             "default": (size.width(356), size.height(1088)),
             "720x1280": (356, 1088),

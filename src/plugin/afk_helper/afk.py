@@ -10,11 +10,8 @@ from plugin.afk_helper.zcv import zcv
 from plugin.afk_helper.key import key_list, Key, KeyList
 
 
-def func(event, coor=None):
-    if coor is None:
-        coor = []
-    print(event)
-    print(coor)
+def func(event):
+    print('you pressed', event.button, event.xdata, event.ydata)
 
 
 class AFK:

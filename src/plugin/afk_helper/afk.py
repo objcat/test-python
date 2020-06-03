@@ -10,10 +10,20 @@ from plugin.afk_helper.zcv import zcv
 from plugin.afk_helper.key import key_list, Key, KeyList
 
 
+def func(event, coor=None):
+    if coor is None:
+        coor = []
+    print(event)
+    print(coor)
+
+
 class AFK:
 
     # 开始
     def start(self):
+
+        img = adb.cv_rgb_screencap()
+        zcv.imshow_func(img, func)
 
         # img1 = adb.cv_rgb_screencap_cut_ratio_num(0)
         # zcv.imshow(img1)

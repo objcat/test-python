@@ -5,6 +5,8 @@
 
 import cv2
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_template import FigureCanvas
+from matplotlib.figure import Figure
 
 
 class Zcv:
@@ -29,6 +31,13 @@ class Zcv:
         """
         plt.figure()
         plt.imshow(image, animated=True)
+        plt.show()
+
+    def imshow_func(self, image, func):
+        figure = plt.figure()  # type: Figure
+        plt.imshow(image, animated=True)
+        canvas = figure.canvas  # type: FigureCanvas
+        canvas.mpl_connect('button_press_event', func)
         plt.show()
 
     def get_point_center(self, img, template, debug):

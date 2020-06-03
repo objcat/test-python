@@ -3,8 +3,6 @@
 # author: objcat
 # version: 1.0
 
-from plugin.afk_helper.size import size
-
 
 class KeyMap:
     # 挑战首领
@@ -12,7 +10,6 @@ class KeyMap:
         "name": "挑战首领",
         "en_name": "challenge_boss",
         "point": {
-            "default": (size.width(356), size.height(1088)),
             "720x1280": (356, 1088),
             "1080x2340": (552, 2091),
         }
@@ -22,7 +19,6 @@ class KeyMap:
     second_challenge_boss = {
         "name": "弹窗上的挑战首领",
         "point": {
-            "default": (size.width(356), size.height(980)),
             "720x1280": (356, 980),
             "1080x2340": (539, 1673),
         }
@@ -33,7 +29,6 @@ class KeyMap:
         "name": "战斗",
         "en_name": "battle",
         "point": {
-            "default": (size.width(356), size.height(1223)),
             "720x1280": (356, 1223),
             "1080x2340": (526, 2255),
         }}
@@ -44,7 +39,6 @@ class KeyMap:
         "en_name": "retry",
         "img": "./img/retry.png",
         "point": {
-            "default": (size.width(356), size.height(1140)),
             "720x1280": (356, 1140),
             "1080x2340": (526, 1926),
         },
@@ -58,7 +52,6 @@ class KeyMap:
     next = {
         "name": "下一关", "en_name": "next", "img": "./img/next.png",
         "point": {
-            "default": (size.width(356), size.height(1140)),
             "720x1280": (356, 1140),
             "1080x2340": (535, 1872),
         },
@@ -80,9 +73,8 @@ class KeyMap:
         "name": "王座之塔挑战",
         "en_name": "king_challenge",
         "point": {
-            "default": (size.width(356), size.height(1223)),
             "720x1280": (349, 890),
-            "1080x2340": (533, 1990),
+            "1080x2340": (533, 1420),
         }
     }
 
@@ -92,7 +84,6 @@ class KeyMap:
         "en_name": "king_tower_continue",
         "img": "./img/touch_screen_continue.png",
         "point": {
-            "default": (size.width(356), size.height(1140)),
             "720x1280": (356, 1140),
             "1080x2340": (535, 1872),
         },
@@ -101,7 +92,6 @@ class KeyMap:
             "1080x2340": "20.784608840942383"
         },
         "cut_ratio": {
-
             "1080x2340": "0.7"
         }
     }

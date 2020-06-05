@@ -1,4 +1,4 @@
-# description: 封装opencv
+# description: 封装图像处理工具
 # date: 2020/5/24 21:34 
 # author: objcat 
 # version: 1.0

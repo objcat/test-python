@@ -1,4 +1,4 @@
-# description: ztr.py
+# description: 封装线程管理类
 # date: 2020/5/31 16:00
 # author: objcat
 # version: 1.0

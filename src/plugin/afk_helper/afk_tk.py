@@ -4,7 +4,7 @@
 # version: 1.0
 
 import tkinter as tk
-from plugin.afk_helper import ztr
+from tools import ztr
 from plugin.afk_helper.afk import afk
 from plugin.afk_helper.adb import adb
 

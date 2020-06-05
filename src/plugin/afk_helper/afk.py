@@ -6,8 +6,8 @@
 import time
 
 from plugin.afk_helper.adb import adb
-from plugin.afk_helper.zcv import zcv
-from plugin.afk_helper.key import key_list, Key, KeyList
+from tools.zcv import zcv
+from plugin.afk_helper.key import key_list, Key
 
 
 def func(event):

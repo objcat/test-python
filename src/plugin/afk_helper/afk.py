@@ -216,7 +216,7 @@ class AFK:
             flag = 0
             for key in keys:
                 cut_ratio = 0
-                if key.cut_ratio is not None:
+                if zstr.isEmpty(key.cut_ratio) is False:
                     cut_ratio = key.cut_ratio
 
                 img1 = adb.cv_rgb_screencap_cut_ratio_num(cut_ratio)

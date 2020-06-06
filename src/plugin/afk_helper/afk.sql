@@ -15,7 +15,7 @@ create table key
 );
 
 -- 720x1280
-INSERT OR REPLACE INTO key (en_name, rp, name, img, point, distance, cut_ratio, create_time, update_time) VALUES ('challenge_boss', '720x1280', '挑战首领', '', '356,1008', '', '', '2020-6-5 22:28:03', '2020-6-5 22:28:07');
+INSERT OR REPLACE INTO key (en_name, rp, name, img, point, distance, cut_ratio, create_time, update_time) VALUES ('challenge_boss', '720x1280', '挑战首领', '', '356,1088', '', '', '2020-6-5 22:28:03', '2020-6-5 22:28:07');
 INSERT OR REPLACE INTO key (en_name, rp, name, img, point, distance, cut_ratio, create_time, update_time) VALUES ('second_challenge_boss', '720x1280', '弹窗上的挑战首领', '', '356,980', '', '', '2020-6-5 22:30:26', '2020-6-5 22:30:26');
 INSERT OR REPLACE INTO key (en_name, rp, name, img, point, distance, cut_ratio, create_time, update_time) VALUES ('battle', '720x1280', '战斗', '', '356,1223', '', '', '2020-6-5 22:30:26', '2020-6-5 22:30:26');
 INSERT OR REPLACE INTO key (en_name, rp, name, img, point, distance, cut_ratio, create_time, update_time) VALUES ('retry', '720x1280', '再次挑战', './img/retry.png', '356,1140', '31.575305938720703', '', '2020-6-5 22:30:26', '2020-6-5 22:30:26');

@@ -85,6 +85,7 @@ class KeyList:
             try:
                 obj = keylist_dict[name]
                 try:
+                    # 把字符串转化为元组
                     dic['point'] = eval(dic['point'])
                 except:
                     pass

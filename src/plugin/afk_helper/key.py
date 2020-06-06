@@ -6,15 +6,14 @@
 
 from plugin.afk_helper.key_map import KeyMap
 from plugin.afk_helper.adb import adb
-import json
+from tools.zsq3 import Zsq3
+
+db = Zsq3("./afk.db")
 
 
 class Key:
 
     def __init__(self, json=None):
-
-        if json is None:
-            return
 
         self.name = None
         self.en_name = None
@@ -24,11 +23,12 @@ class Key:
         self.distance = None
         self.cut_ratio = None
 
+        if json is None:
+            return
+
         self_dict = self.__dict__
 
         contain = ['point', 'distance', 'cut_ratio']
-
-        pass
 
         for key in self_dict:
             try:
@@ -36,7 +36,7 @@ class Key:
                 # 如果有二层key, 使用分辨率来取
                 if contain.__contains__(key):
                     try:
-                        self_dict[key] = json[key][adb.ratio_key]
+                        self_dict[key] = json[key][adb.rp]
                     except:
                         self_dict[key] = None
                         pass
@@ -46,7 +46,7 @@ class Key:
 
 class KeyList:
 
-    def __init__(self, KeyMap):
+    def __init__(self):
         self.challenge_boss = Key()
         self.second_challenge_boss = Key()
         self.battle = Key()
@@ -56,13 +56,53 @@ class KeyList:
         self.king_challenge = Key()
         self.king_tower_continue = Key()
 
+    @classmethod
+    def init_with_key_map(cls):
+        """通过key_map初始化
+        :return: keylist
+        """
+        keylist = cls()
+        keylist_dict = keylist.__dict__
         keymap_dict = KeyMap.__dict__
-        self_dict = self.__dict__
-        for key in self_dict:
-            self_dict[key] = Key(keymap_dict[key])
-        pass
+        for key in keylist_dict:
+            keylist_dict[key] = Key(keymap_dict[key])
+        print("初始化key_list成功", keylist.__dict__)
+        return keylist
 
-        print("初始化key_list成功", self.__dict__)
+    @classmethod
+    def init_with_db(cls):
+        """通过sqlite初始化
+        :return:
+        """
+        keylist = cls()
+        keylist_dict = keylist.__dict__
+        print(keylist_dict)
+        arr = db.select_dic_list(Key, where=f"rp='{adb.rp}'")
+        print(arr)
+        contain = ['point', 'distance', 'cut_ratio']
+        for dic in arr:
+            name = dic['en_name']
+            try:
+                obj = keylist_dict[name]
+                try:
+                    dic['point'] = eval(dic['point'])
+                except:
+                    pass
+                obj.__dict__ = dic
+            except Exception as e:
+                continue
+        print("初始化key_list成功", keylist.__dict__)
+        return keylist
 
 
-key_list = KeyList(KeyMap)
+# 提供了两种数数据源的获取方式 后期会保留key_map但是功能会基于sqlite继续做下去
+# key_list = KeyList.init_with_key_map()
+key_list = KeyList.init_with_db()
+
+
+def start():
+    pass
+
+
+if __name__ == '__main__':
+    start()

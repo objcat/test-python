@@ -5,6 +5,7 @@
 
 import sqlite3
 import json
+from tools import zstr
 
 
 class User:
@@ -74,34 +75,58 @@ class Zsq3:
             return False
         pass
 
-    def select_all(self, classz):
+    def select(self, table, where=None):
+        if zstr.isEmpty(where) is False:
+            sql = f"select * from {table} where " + where
+        else:
+            sql = f"select * from {table}"
+        return self.cur.execute(sql)
+        pass
+
+    def select_dic_list(self, classz, where=None):
         """查询全部
         根据类来查询所属表中的所有数据
         :param classz: 类 (表名)
         :return: list
         """
         table = classz.__name__.lower()
-        sql = f"select * from {table}"
-        arr = self.cur.execute(sql).fetchall()
+        arr = self.select(table, where).fetchall()
         result = []
         for tup in arr:
-            obj = self.tuple_to_obj(tup, classz)
+            obj = self.tuple_to_dic(tup, table)
             result.append(obj)
         return result
 
-    def select(self, classz, where):
-        """查询
+    def select_obj_list(self, classz, where=None):
+        arr = self.select_dic_list(classz, where)
+        r = []
+        for dic in arr:
+            obj = classz()
+            obj.__dict__ = dic
+            r.append(obj)
+        return r
+
+    def select_one(self, classz, where=None):
+        """查询一个
         :param classz: 类 (表名)
         :param where: 条件
-        :return: object
+        :return: tup
         """
         table = classz.__name__.lower()
-        sql = f"select * from {table} where " + where
-        tup = self.cur.execute(sql).fetchone()
+        tup = self.select(table, where).fetchone()
+        return tup
+
+    def select_obj(self, classz, where=None):
+        tup = self.select(classz, where)
         table = classz.__name__.lower()
         obj = self.tuple_to_obj(tup, classz)
         return obj
-        pass
+
+    def select_dict(self, classz, where=None):
+        tup = self.select(classz, where)
+        table = classz.__name__.lower()
+        d = self.tuple_to_dic(tup, table)
+        return d
 
     def run_script(self, path):
         f = open(path, "r", encoding='utf-8')
@@ -127,6 +152,20 @@ class Zsq3:
         # 字典回输
         obj.__dict__ = dic
         return obj
+
+    def tuple_to_dic(self, tup, table):
+        # 查询表中所有字段信息
+        table_list = self.cur.execute(f"PRAGMA table_info({table})").fetchall()
+        # 结果
+        dic = {}
+        for table_field_info in table_list:
+            # 字段索引
+            index = table_field_info[0]
+            # 字段名
+            field_name = table_field_info[1]
+            # 赋值
+            dic[field_name] = tup[index]
+        return dic
 
     @staticmethod
     def make_insert_sql(obj, append_empty):
@@ -217,45 +256,10 @@ class Zsq3:
         return sql
 
 
-db = Zsq3("./test.db")
+# db = Zsq3("./test.db")
 
 
 def start():
-    sql = """
-create table if not exists user (
-	id integer not null
-		constraint user_pk
-			primary key autoincrement,
-	name text default '',
-	age text default ''
-);
-    """
-
-    # user = db.select_by_key_value(User, key='id', value=10)
-    # re = db.delete_by_key_value(User, key='id', value=10)
-    # print(re)
-
-    # 增
-    # user = User()
-    # user.name = "lisi"
-    # user.age = '18'
-    #
-    # db.insert(user)
-
-    # 删
-    # db.delete(User, "id='11'")
-
-    # 改
-    # user = User()
-    # user.age = '996'
-    # db.update(user, "id='13'")
-
-    # 查
-    # print(db.select_all(User))
-    # print(db.select(User, "id='13'"))
-
-    db.run_script("./test.sql")
-
     pass
 
 

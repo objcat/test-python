@@ -18,7 +18,7 @@ class Adb:
     def __init__(self, device):
         self.adb = config.adb_path
         self.device = device
-        self.ratio_key = ""
+        self.rp = ""
         self.__screen_size = (0, 0)
         self.get_screen_size()
         self.connect(device)
@@ -48,7 +48,7 @@ class Adb:
                 width = a
                 height = b
 
-            self.ratio_key = ratio_key = str(width) + "x" + str(height)
+            self.rp = ratio_key = str(width) + "x" + str(height)
 
             print("成功获取屏幕高度 ", "屏幕宽度", width, "屏幕高度", height)
 
@@ -85,7 +85,7 @@ class Adb:
         img_cut = img_rgb[y1:y2, x1:x2]
         return img_cut
 
-    def cv_rgb_screencap_cut_ratio_num(self, ratio_num: str):
+    def cv_rgb_screencap_cut_ratio_num(self, ratio_num: str=0):
         """
         根据比例截取 0 ~ 1
         :param ratio_num: 截取高度开始比例 比例 * 高度 起始

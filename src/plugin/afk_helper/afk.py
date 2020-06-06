@@ -8,6 +8,7 @@ import time
 from plugin.afk_helper.adb import adb
 from tools.zcv import zcv
 from plugin.afk_helper.key import key_list, Key
+from tools import zstr
 
 
 def func(event):
@@ -179,9 +180,8 @@ class AFK:
             flag = 0
             for key in keys:
                 cut_ratio = 0
-                if key.cut_ratio is not None:
+                if zstr.isEmpty(key.cut_ratio) is False:
                     cut_ratio = key.cut_ratio
-
                 img1 = adb.cv_rgb_screencap_cut_ratio_num(cut_ratio)
                 img2 = zcv.imread(key.img)
                 d, pt = zcv.bf_distance(img1, img2)
@@ -189,7 +189,7 @@ class AFK:
                 i[key.en_name] += 1
 
                 if i[key.en_name] >= 35:
-                    adb.log(f'特征匹配失败, 请在{key.en_name}的distance字段中加入或替换, "{adb.ratio_key}": "{d}"')
+                    adb.log(f'特征匹配失败, 请在{key.en_name}的distance字段中加入或替换, "{adb.rp}": "{d}"')
 
                 adb.log(f"识别到特征 {d} 目标特征 {key.distance}")
 

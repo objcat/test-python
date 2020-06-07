@@ -10,12 +10,11 @@ from PyQt5 import QtGui
 from plugin.afk_helper.pages.main import afk_main
 from tools import ztr
 from plugin.afk_helper import gl
+from plugin.afk_helper import config
 
-from plugin.afk_helper.afk import afk
-from plugin.afk_helper.adb import adb
-
-
-
+from plugin.afk_helper import afk
+from plugin.afk_helper import adb
+from plugin.afk_helper import key
 
 
 class AFKMainWindow(QMainWindow):
@@ -45,49 +44,60 @@ class AFKMainWindow(QMainWindow):
         # 终止所有操作
         self.ui.stop_all_btn.clicked.connect(lambda: self.btn_action(self.ui.stop_all_btn))
 
-        pass
-
     def btn_action(self, btn):
 
         if btn == self.ui.show_screen_cut_btn:
-            ztr.add('显示屏幕', afk.show_screen())
+            ztr.add('显示屏幕', gl.afk.show_screen())
             return
 
         if btn == self.ui.draw_sift_line_btn:
-            ztr.add('绘制特征线', afk.make_sift_line())
+            ztr.add('绘制特征线', gl.afk.make_sift_line())
             return
 
         if btn == self.ui.print_distance_btn:
-            ztr.add('打印特征', afk.log_sift_distance())
+            ztr.add('打印特征', gl.afk.log_sift_distance())
             return
 
         if btn == self.ui.auto_challenge_btn:
-            ztr.add('自动挑战2.0', afk.auto_challenge2())
+            ztr.add('自动挑战2.0', gl.afk.auto_challenge2())
             return
 
         if btn == self.ui.auto_tower_btn:
-            ztr.add('自动爬塔', afk.auto_challenge_king_tower())
+            ztr.add('自动爬塔', gl.afk.auto_challenge_king_tower())
             return
 
         if btn == self.ui.stop_all_btn:
-            adb.log("终止所有操作")
+            gl.adb.log("终止所有操作")
             ztr.stop_all()
             return
 
 
 def start():
+
+
     # 创建app
     app = QApplication(sys.argv)
-    # 创建加载图
+    # 创建加载图 - 这里要先创建启动图, 先初始化资源会造成软件界面卡顿
     splash = show_launch_screen()
+
+    # 初始化adb
+    gl.adb = adb.Adb(config.device)
+    # 初始化key_list
+    gl.key_list = key.KeyList.init_with_db()
+    # 初始化afk
+    gl.afk = afk.AFK()
+
+    # 关掉启动图
+    splash.close()
+
     # 创建主窗口
     win = AFKMainWindow()
     # 显示窗口
     win.show()
-    # 关掉启动图
-    splash.close()
+
     # 设置runloop
     sys.exit(app.exec_())
+
 
 def show_launch_screen():
     # 创建启动图
@@ -97,8 +107,6 @@ def show_launch_screen():
     # 附加信息
     # splash.showMessage('正在加载....')
     return splash
-
-
 
 
 if __name__ == '__main__':

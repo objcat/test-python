@@ -8,3 +8,5 @@
 adb = None
 # key_list
 key_list = None
+# afk
+afk = None

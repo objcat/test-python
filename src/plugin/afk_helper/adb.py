@@ -141,4 +141,4 @@ class Adb:
         os.system(f"{self.adb} disconnect")
 
 
-adb = Adb(config.device)
+# adb = Adb(config.device)

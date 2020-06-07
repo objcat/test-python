@@ -3,6 +3,7 @@
 # author: objcat
 # version: 1.0
 
+import time
 
 class Tool:
 

@@ -12,10 +12,6 @@ from tools import ztr
 from plugin.afk_helper import gl
 from plugin.afk_helper import config
 
-from plugin.afk_helper import afk
-from plugin.afk_helper import adb
-from plugin.afk_helper import key
-
 
 class AFKMainWindow(QMainWindow):
 
@@ -73,28 +69,18 @@ class AFKMainWindow(QMainWindow):
 
 
 def start():
-
-
     # 创建app
     app = QApplication(sys.argv)
     # 创建加载图 - 这里要先创建启动图, 先初始化资源会造成软件界面卡顿
     splash = show_launch_screen()
-
-    # 初始化adb
-    gl.adb = adb.Adb(config.device)
-    # 初始化key_list
-    gl.key_list = key.KeyList.init_with_db()
-    # 初始化afk
-    gl.afk = afk.AFK()
-
+    # 初始化全局变量
+    gl.init()
     # 关掉启动图
     splash.close()
-
     # 创建主窗口
     win = AFKMainWindow()
     # 显示窗口
     win.show()
-
     # 设置runloop
     sys.exit(app.exec_())
 

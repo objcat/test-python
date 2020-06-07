@@ -8,8 +8,10 @@ from plugin.afk_helper.key_map import KeyMap
 from plugin.afk_helper import gl
 from tools.zsq3 import Zsq3
 from plugin.afk_helper import config
+
 db = Zsq3(config.db)
 print("进来了")
+
 
 class Key:
 
@@ -59,6 +61,8 @@ class KeyList:
     @classmethod
     def init_with_key_map(cls):
         """通过key_map初始化
+        在程序早期,使用key_map作为数据存储工具, 但这有个问题就是无法灵活的进行存取
+        所以最新版的程序都是使用sqlite进行存储了
         :return: keylist
         """
         keylist = cls()
@@ -94,15 +98,6 @@ class KeyList:
                 continue
         print("初始化key_list成功", keylist.__dict__)
         return keylist
-
-
-# 提供了两种数数据源的获取方式 后期会保留key_map但是功能会基于sqlite继续做下去
-# key_list = KeyList.init_with_key_map()
-
-# key_list = KeyList.init_with_db()
-
-
-
 
 
 def start():

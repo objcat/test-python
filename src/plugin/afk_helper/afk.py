@@ -6,8 +6,6 @@
 import time
 
 from plugin.afk_helper import gl
-# from plugin.afk_helper.adb import adb
-from plugin.afk_helper.key import Key
 from tools.zcv import zcv
 from tools import zstr
 
@@ -212,25 +210,24 @@ class AFK:
         """
         # 建立计数索引
         for key in keys:
-            key: Key
-        while 1:
-            flag = 0
-            for key in keys:
-                cut_ratio = 0
-                if zstr.isEmpty(key.cut_ratio) is False:
-                    cut_ratio = key.cut_ratio
+            while 1:
+                flag = 0
+                for key in keys:
+                    cut_ratio = 0
+                    if zstr.isEmpty(key.cut_ratio) is False:
+                        cut_ratio = key.cut_ratio
 
-                img1 = gl.adb.cv_rgb_screencap_cut_ratio_num(cut_ratio)
-                img2 = zcv.imread(key.img)
-                d, pt = zcv.bf_distance(img1, img2)
+                    img1 = gl.adb.cv_rgb_screencap_cut_ratio_num(cut_ratio)
+                    img2 = zcv.imread(key.img)
+                    d, pt = zcv.bf_distance(img1, img2)
 
-                gl.adb.log(f"开始匹配{key.en_name} 特征点{d}")
-                if d <= 40:
-                    gl.adb.log(f"匹配到坐标点为 {pt}")
-                    key.point = pt
-                    return key
-                    pass
-                time.sleep(1)
+                    gl.adb.log(f"开始匹配{key.en_name} 特征点{d}")
+                    if d <= 40:
+                        gl.adb.log(f"匹配到坐标点为 {pt}")
+                        key.point = pt
+                        return key
+                        pass
+                    time.sleep(1)
 
 
 if __name__ == '__main__':

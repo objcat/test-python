@@ -139,6 +139,3 @@ class Adb:
 
     def disconnect(self):
         os.system(f"{self.adb} disconnect")
-
-
-# adb = Adb(config.device)

@@ -18,6 +18,8 @@ def stop_all():
     ztr.stop_all()
 
 
+b = tk.Button() # type:tk.Button
+
 show_screen_btn = tk.Button(window, text='展示屏幕', width=15, height=2, command=lambda: ztr.run('显示屏幕', afk.show_screen),
                             bg="white").pack()
 

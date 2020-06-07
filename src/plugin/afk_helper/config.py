@@ -4,15 +4,26 @@
 # version: 1.0
 
 
-# adb路径
-adb_path = "adb" # adb配置环境变量后 默认adb
+"""
+ADB路径
+"""
+
+adb_path = ".\\adb\\adb\\adb" # 工程中adb路径 (我们可以感觉到这种路径非常恶心)
+# adb_path = "adb" # adb配置环境变量后 默认adb 如果你有可以用这个
 # adb_path = ".\\mumu\\adb_server" # 如果有特殊的adb可以直接写入路径 规范在上面
 
-# 设备/地址
+"""
+设备配置
+"""
 
-# 网易mumu
-device = "127.0.0.1:7555"
+
+# device = "127.0.0.1:7555" # 网易mumu
 # 我的手机
-# device = "5e49ca6b"
+device = "5e49ca6b"
+
+"""
+数据库配置
+"""
+db = "./db/afk.db"
 
 

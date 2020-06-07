@@ -13,7 +13,7 @@ headers = {
     'cache-control': "no-cache",
     # 手机qq空间app -> 小游戏 -> qq农场wap 自己去抓 或者 破解cookie --- 本人暂时没有破解cookie
     "Cookie": "",
-    "User-Agent": "QZONEJSSDK/8.3.6.1 QQJSSDK/1.2 Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_4 like Mac OS X) AppleWebKit/605.1.15"
+    "User-Agent": "QZONEJSSDK/8.3.6.1 QQJSSDK/QT2_useQTDesigner.2 Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_4 like Mac OS X) AppleWebKit/605.QT2_useQTDesigner.15"
 }
 
 place = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23"

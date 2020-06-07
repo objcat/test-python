@@ -7,8 +7,9 @@
 from plugin.afk_helper.key_map import KeyMap
 from plugin.afk_helper.adb import adb
 from tools.zsq3 import Zsq3
+from plugin.afk_helper import config
 
-db = Zsq3("./afk.db")
+db = Zsq3(config.db)
 
 
 class Key:

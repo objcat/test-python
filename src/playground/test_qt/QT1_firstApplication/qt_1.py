@@ -1,7 +1,7 @@
 # description: 开发第一个基于PyQt5的桌面应用
 # date: 2020/6/7 12:42
 # author: objcat
-# version: 2_useQTDesigner.0
+# version: 1.0
 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget

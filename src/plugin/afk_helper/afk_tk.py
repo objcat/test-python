@@ -19,15 +19,18 @@ def stop_all():
     gl.adb.log("终止所有操作")
     ztr.stop_all()
 
+def show_screen():
+    ztr.run(gl.afk.show_screen)
+
 
 b = tk.Button()  # type:tk.Button
 
 show_screen_btn = tk.Button(window, text='展示屏幕', width=15, height=2,
-                            command=lambda: ztr.add('显示屏幕', gl.afk.show_screen),
+                            command=show_screen,
                             bg="white").pack()
 
 make_line_sift_btn = tk.Button(window, text='绘制特征线', width=15, height=2,
-                               command=lambda: ztr.add('绘制特征线', gl.afk.make_sift_line),
+                               command=lambda: ztr.run(gl.afk.make_sift_line),
                                bg="white").pack()
 
 get_distance_btn = tk.Button(window, text='打印特征', width=15, height=2,

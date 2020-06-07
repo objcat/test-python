@@ -10,7 +10,6 @@ from PyQt5 import QtGui
 from plugin.afk_helper.pages.main import afk_main
 from tools import ztr
 from plugin.afk_helper import gl
-from plugin.afk_helper import config
 
 
 class AFKMainWindow(QMainWindow):
@@ -43,23 +42,24 @@ class AFKMainWindow(QMainWindow):
     def btn_action(self, btn):
 
         if btn == self.ui.show_screen_cut_btn:
-            ztr.add('显示屏幕', gl.afk.show_screen())
+            # 由于plt只能在主线程中调用
+            gl.afk.show_screen()
             return
 
         if btn == self.ui.draw_sift_line_btn:
-            ztr.add('绘制特征线', gl.afk.make_sift_line())
+            gl.afk.make_sift_line()
             return
 
         if btn == self.ui.print_distance_btn:
-            ztr.add('打印特征', gl.afk.log_sift_distance())
+            ztr.add('打印特征', lambda: gl.afk.log_sift_distance())
             return
 
         if btn == self.ui.auto_challenge_btn:
-            ztr.add('自动挑战2.0', gl.afk.auto_challenge2())
+            ztr.add('自动挑战2.0', lambda: gl.afk.auto_challenge2())
             return
 
         if btn == self.ui.auto_tower_btn:
-            ztr.add('自动爬塔', gl.afk.auto_challenge_king_tower())
+            ztr.add('自动爬塔', lambda: gl.afk.auto_challenge_king_tower())
             return
 
         if btn == self.ui.stop_all_btn:

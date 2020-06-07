@@ -4,7 +4,7 @@
 # version: 1.0
 
 import cv2
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.figure import Figure
 

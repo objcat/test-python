@@ -15,9 +15,16 @@ def run(func):
     t.setDaemon(True)
     t.start()
 
+
 def add(func_name, func):
     t = threading.Thread(target=func)
-    treadings[func_name] = t
+    try:
+        # 防止重复插入相同名字的方法
+        func_name = treadings[func_name]
+        return
+    except:
+        treadings[func_name] = t
+
     t.setDaemon(True)
     t.start()
 

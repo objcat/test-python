@@ -18,37 +18,6 @@ class AFK:
 
     # 开始
     def start(self):
-
-        img = gl.adb.cv_rgb_screencap()
-        zcv.imshow_func(img, func)
-
-        # img1 = adb.cv_rgb_screencap_cut_ratio_num(0)
-        # zcv.imshow(img1)
-
-        # 自动推图2.0
-        # self.auto_challenge2()
-        # stop = True
-
-        # self.auto_challenge_king_tower()
-
-        # self.waiting_keys([key_list.retry, key_list.king_tower_continue])
-
-        # 测试使用
-
-        # 屏幕截图
-        # self.show_screen()
-        # zcv.imshow(adb.cv_rgb_screencap_cut_ratio_num(0.5))
-
-        # img1 = adb.cv_rgb_screencap()
-        # img1 = adb.cv_rgb_screencap_cut((352, 1885, 731, 2017))
-        # img2 = zcv.imread("./img/touch_screen_continue.png")
-
-        # 识别画线
-        # zcv.bf(img1, img2, True)
-        # 获取特征点
-        # distance = zcv.bf_distance(img1, img2)
-        # print(distance)
-
         pass
 
     def show_screen(self):

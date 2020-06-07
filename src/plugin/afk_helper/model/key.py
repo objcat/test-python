@@ -6,12 +6,8 @@
 
 from plugin.afk_helper.key_map import KeyMap
 from plugin.afk_helper import gl
-from tools.zsq3 import Zsq3
-from plugin.afk_helper import config
 
-db = Zsq3(config.db)
 print("进来了")
-
 
 class Key:
 
@@ -38,7 +34,7 @@ class Key:
                 # 如果有二层key, 使用分辨率来取
                 if contain.__contains__(key):
                     try:
-                        self_dict[key] = json[key][adb.rp]
+                        self_dict[key] = json[key][gl.adb.rp]
                     except:
                         self_dict[key] = None
                         pass
@@ -74,7 +70,7 @@ class KeyList:
         return keylist
 
     @classmethod
-    def init_with_db(cls):
+    def init_with_db(cls, db):
         """通过sqlite初始化
         :return:
         """

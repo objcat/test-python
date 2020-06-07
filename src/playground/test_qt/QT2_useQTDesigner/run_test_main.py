@@ -18,6 +18,8 @@ def start():
     ui = test_main.Ui_MainWindow()
     # 将UI设置到主窗口上
     ui.setupUi(win)
+    # 绑定事件
+    bind_solt(ui)
     # 设置窗口居中
     center(win)
     # 初始化状态栏
@@ -30,14 +32,21 @@ def start():
     sys.exit(app.exec_())
 
 
-def center(win:QMainWindow):
+def bind_solt(ui):
+    ui.comboBox_2.currentIndexChanged.connect(lambda: currentIndexChanged(ui.comboBox_2))
+
+
+def currentIndexChanged(box):
+    print(box.currentText())
+
+
+def center(win: QMainWindow):
     # 获取屏幕坐标系
     screen = QDesktopWidget().screenGeometry()
     size = win.geometry()
     new_left = (screen.width() - size.width()) / 2
     new_top = (screen.height() - size.height()) / 2
     win.move(new_left, new_top)
-
 
 
 if __name__ == '__main__':

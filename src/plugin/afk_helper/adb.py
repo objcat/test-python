@@ -117,7 +117,7 @@ class Adb:
         :return:
         """
 
-        from plugin.afk_helper.key import Key
+        from plugin.afk_helper.model.key import Key
         key: Key
 
         name = key.name

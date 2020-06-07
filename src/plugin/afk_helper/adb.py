@@ -85,7 +85,7 @@ class Adb:
         img_cut = img_rgb[y1:y2, x1:x2]
         return img_cut
 
-    def cv_rgb_screencap_cut_ratio_num(self, ratio_num: str=0):
+    def cv_rgb_screencap_cut_ratio_num(self, ratio_num: str = 0):
         """
         根据比例截取 0 ~ 1
         :param ratio_num: 截取高度开始比例 比例 * 高度 起始

@@ -10,8 +10,13 @@ import ctypes
 treadings = {}
 
 
-def run(func_name, func, *args):
-    t = threading.Thread(target=func, args=args)
+def run(func):
+    t = threading.Thread(target=func)
+    t.setDaemon(True)
+    t.start()
+
+def add(func_name, func):
+    t = threading.Thread(target=func)
     treadings[func_name] = t
     t.setDaemon(True)
     t.start()

@@ -6,8 +6,8 @@
 import time
 
 from plugin.afk_helper.adb import adb
-from tools.zcv import zcv
 from plugin.afk_helper.key import key_list, Key
+from tools.zcv import zcv
 from tools import zstr
 
 

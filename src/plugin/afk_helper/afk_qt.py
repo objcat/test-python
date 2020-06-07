@@ -4,14 +4,22 @@
 # version: 1.0
 
 import sys
+import time
 from PyQt5.QtWidgets import *
+from PyQt5 import QtGui
 from plugin.afk_helper.pages.main import afk_main
 from tools import ztr
+from plugin.afk_helper import gl
+
 from plugin.afk_helper.afk import afk
 from plugin.afk_helper.adb import adb
 
 
+
+
+
 class AFKMainWindow(QMainWindow):
+
     def __init__(self):
         super(AFKMainWindow, self).__init__()
         # 初始化ui
@@ -42,23 +50,23 @@ class AFKMainWindow(QMainWindow):
     def btn_action(self, btn):
 
         if btn == self.ui.show_screen_cut_btn:
-            ztr.run('显示屏幕', afk.show_screen)
+            ztr.add('显示屏幕', afk.show_screen())
             return
 
         if btn == self.ui.draw_sift_line_btn:
-            ztr.run('绘制特征线', afk.make_sift_line)
+            ztr.add('绘制特征线', afk.make_sift_line())
             return
 
         if btn == self.ui.print_distance_btn:
-            ztr.run('打印特征', afk.log_sift_distance)
+            ztr.add('打印特征', afk.log_sift_distance())
             return
 
         if btn == self.ui.auto_challenge_btn:
-            ztr.run('自动挑战2.0', afk.auto_challenge2)
+            ztr.add('自动挑战2.0', afk.auto_challenge2())
             return
 
         if btn == self.ui.auto_tower_btn:
-            ztr.run('自动爬塔', afk.auto_challenge_king_tower)
+            ztr.add('自动爬塔', afk.auto_challenge_king_tower())
             return
 
         if btn == self.ui.stop_all_btn:
@@ -70,12 +78,27 @@ class AFKMainWindow(QMainWindow):
 def start():
     # 创建app
     app = QApplication(sys.argv)
+    # 创建加载图
+    splash = show_launch_screen()
     # 创建主窗口
     win = AFKMainWindow()
     # 显示窗口
     win.show()
+    # 关掉启动图
+    splash.close()
     # 设置runloop
     sys.exit(app.exec_())
+
+def show_launch_screen():
+    # 创建启动图
+    splash = QSplashScreen(QtGui.QPixmap('./img/launch.png'))
+    # 展示启动图
+    splash.show()
+    # 附加信息
+    # splash.showMessage('正在加载....')
+    return splash
+
+
 
 
 if __name__ == '__main__':

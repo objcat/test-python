@@ -8,7 +8,6 @@ from plugin.afk_helper.key_map import KeyMap
 from plugin.afk_helper.adb import adb
 from tools.zsq3 import Zsq3
 from plugin.afk_helper import config
-
 db = Zsq3(config.db)
 
 
@@ -99,7 +98,11 @@ class KeyList:
 
 # 提供了两种数数据源的获取方式 后期会保留key_map但是功能会基于sqlite继续做下去
 # key_list = KeyList.init_with_key_map()
+
 key_list = KeyList.init_with_db()
+
+
+
 
 
 def start():

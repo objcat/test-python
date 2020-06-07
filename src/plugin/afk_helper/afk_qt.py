@@ -20,6 +20,8 @@ class AFKMainWindow(QMainWindow):
         self.ui = afk_main.Ui_MainWindow()
         # 设置ui
         self.ui.setupUi(self)
+        # 绑定数据
+        self.bind_data()
         # 绑定点击事件
         self.bind_slot()
         # 设置标题
@@ -38,8 +40,21 @@ class AFKMainWindow(QMainWindow):
         self.ui.auto_tower_btn.clicked.connect(lambda: self.btn_action(self.ui.auto_tower_btn))
         # 终止所有操作
         self.ui.stop_all_btn.clicked.connect(lambda: self.btn_action(self.ui.stop_all_btn))
+        # device下拉框
+        self.ui.device_combo_box.currentIndexChanged.connect(
+            lambda: self.device_combo_box_change(self.ui.device_combo_box))
+        # 连接
+        self.ui.connect_btn.clicked.connect(lambda: self.connect_device())
+
+    def connect_device(self):
+        gl.zstr.log("尝试重新连接")
+        gl.init_device_info()
 
     def btn_action(self, btn):
+
+        if gl.isConnected is False:
+            gl.zstr.log("设备未连接, 请点击连接")
+            return
 
         if btn == self.ui.show_screen_cut_btn:
             # 由于plt只能在主线程中调用
@@ -63,9 +78,19 @@ class AFKMainWindow(QMainWindow):
             return
 
         if btn == self.ui.stop_all_btn:
-            gl.adb.log("终止所有操作")
+            gl.zstr.log("终止所有操作")
             ztr.stop_all()
             return
+
+    def bind_data(self):
+        for device in gl.device_list:  # type: gl.Device
+            self.ui.device_combo_box.addItem(device.display_name)
+
+    def device_combo_box_change(self, box):
+        # 获取设备索引
+        i = box.currentIndex()
+        # 更改当前设备
+        gl.current_device = gl.device_list[i]
 
 
 def start():
@@ -73,8 +98,10 @@ def start():
     app = QApplication(sys.argv)
     # 创建加载图 - 这里要先创建启动图, 先初始化资源会造成软件界面卡顿
     splash = show_launch_screen()
-    # 初始化全局变量
+    # 初始化设备
     gl.init()
+    # 初始设备相关
+    gl.init_device_info()
     # 关掉启动图
     splash.close()
     # 创建主窗口

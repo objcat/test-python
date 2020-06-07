@@ -11,6 +11,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 from plugin.afk_helper import config
+from tools import zstr
+from plugin.afk_helper import gl
 
 
 class Adb:
@@ -20,8 +22,8 @@ class Adb:
         self.device = device
         self.rp = ""
         self.__screen_size = (0, 0)
-        self.get_screen_size()
         self.connect(device)
+        self.get_screen_size()
 
     def get_screen_size(self):
         """
@@ -31,8 +33,21 @@ class Adb:
         """
         if self.__screen_size == (0, 0):
             shell = f"{self.adb} -s {self.device} shell wm size"
-            size_str = os.popen(shell).read()
-            print(size_str)
+            size_str = None
+            try:
+                size_str = os.popen(shell).read()
+                print(size_str)
+            except Exception:
+                print(Exception)
+
+            if zstr.isEmpty(size_str) is True:
+                gl.isConnected = False
+                gl.zstr.log("设备连接失败, 请重新连接")
+                return
+            else:
+                gl.zstr.log(f"成功连接到 {gl.current_device.display_name}")
+                gl.isConnected = True
+
             m = re.search(r'(\d+)x(\d+)', size_str)
 
             a = int(m.group(1))
@@ -50,7 +65,8 @@ class Adb:
 
             self.rp = ratio_key = str(width) + "x" + str(height)
 
-            print("成功获取屏幕高度 ", "屏幕宽度", width, "屏幕高度", height)
+            log = "屏幕宽度 " + str(width) + " 屏幕高度 " + str(height)
+            gl.zstr.log(log)
 
             if m:
                 self.__screen_size = (width, height)
@@ -123,16 +139,13 @@ class Adb:
         name = key.name
         width, height = self.get_screen_size()
         x, y = key.point
-        self.log(f"点击{name} x={x} y={y}")
+        gl.zstr.log(f"点击{name} x={x} y={y}")
         os.system(f"{self.adb} -s {self.device} shell input tap {x} {y}")
 
     def swipe(self, key):
         x1, y1, x2, y2 = key
-        self.log(f"滑动屏幕 从 {x1, y1} 到 {x2, y2}")
+        gl.zstr.log(f"滑动屏幕 从 {x1, y1} 到 {x2, y2}")
         os.system(f"{self.adb} -s {self.device} shell input swipe {x1} {y1} {x2} {y2}")
-
-    def log(self, text):
-        print(f"[{datetime.datetime.now()}] {text}")
 
     def connect(self, device):
         os.system(f"{self.adb} connect {self.device}")

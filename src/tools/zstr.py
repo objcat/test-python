@@ -3,9 +3,15 @@
 # author: objcat
 # version: 1.0
 
+import datetime
+
 
 def isEmpty(string):
     if string is None or string == '':
         return True
     else:
         return False
+
+
+def log(text):
+    print(f"[{datetime.datetime.now()}] {text}")

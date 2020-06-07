@@ -16,7 +16,7 @@ window.geometry('500x400')
 
 
 def stop_all():
-    gl.adb.log("终止所有操作")
+    gl.zstr.log("终止所有操作")
     ztr.stop_all()
 
 def show_screen():

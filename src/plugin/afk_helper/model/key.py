@@ -7,7 +7,6 @@
 from plugin.afk_helper.key_map import KeyMap
 from plugin.afk_helper import gl
 
-print("进来了")
 
 class Key:
 
@@ -66,7 +65,7 @@ class KeyList:
         keymap_dict = KeyMap.__dict__
         for key in keylist_dict:
             keylist_dict[key] = Key(keymap_dict[key])
-        print("初始化key_list成功", keylist.__dict__)
+        # print("初始化key_list成功", keylist.__dict__)
         return keylist
 
     @classmethod
@@ -76,10 +75,10 @@ class KeyList:
         """
         keylist = cls()
         keylist_dict = keylist.__dict__
-        print(keylist_dict)
         arr = db.select_dic_list(Key, where=f"rp='{gl.adb.rp}'")
-        print(arr)
-        contain = ['point', 'distance', 'cut_ratio']
+        if len(arr) <= 0:
+            gl.zstr.log("初始化key_list失败, 没有设备对应的key, 请在数据库中添加")
+            return
         for dic in arr:
             name = dic['en_name']
             try:
@@ -92,7 +91,7 @@ class KeyList:
                 obj.__dict__ = dic
             except Exception as e:
                 continue
-        print("初始化key_list成功", keylist.__dict__)
+        gl.zstr.log("初始化key_list成功")
         return keylist
 
 

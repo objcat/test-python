@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="show_screen_cut_btn">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>40</y>
+      <x>330</x>
+      <y>100</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="draw_sift_line_btn">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>80</y>
+      <x>330</x>
+      <y>140</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -43,8 +43,8 @@
    <widget class="QPushButton" name="print_distance_btn">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>120</y>
+      <x>330</x>
+      <y>180</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -56,8 +56,8 @@
    <widget class="QPushButton" name="auto_challenge_btn">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>160</y>
+      <x>330</x>
+      <y>220</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -69,8 +69,8 @@
    <widget class="QPushButton" name="auto_tower_btn">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>200</y>
+      <x>330</x>
+      <y>260</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -82,14 +82,37 @@
    <widget class="QPushButton" name="stop_all_btn">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>240</y>
+      <x>330</x>
+      <y>300</y>
       <width>80</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>终止所有操作</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="device_combo_box">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>120</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="connect_btn">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>120</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>连接</string>
     </property>
    </widget>
   </widget>

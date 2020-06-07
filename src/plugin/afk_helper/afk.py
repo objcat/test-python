@@ -79,14 +79,14 @@ class AFK:
             # waiting_key = self.waiting_keys_2([gl.key_list.retry, gl.key_list.next])
 
             if waiting_key == gl.key_list.retry:
-                gl.adb.log("战斗失败, 即将重新挑战!")
+                gl.zstr.log("战斗失败, 即将重新挑战!")
                 gl.adb.click(waiting_key)
                 retry_flag = 1
                 time.sleep(2)
                 continue
 
             if waiting_key == gl.key_list.next:
-                gl.adb.log("挑战成功, 即将进入下一关!")
+                gl.zstr.log("挑战成功, 即将进入下一关!")
                 gl.adb.click(waiting_key)
                 retry_flag = 0
                 time.sleep(2)
@@ -120,14 +120,14 @@ class AFK:
             waiting_key = self.waiting_keys_2([gl.key_list.retry, gl.key_list.king_tower_continue])
 
             if waiting_key is gl.key_list.retry:
-                gl.adb.log("战斗失败, 即将重新挑战!")
+                gl.zstr.log("战斗失败, 即将重新挑战!")
                 gl.adb.click(waiting_key)
                 time.sleep(2)
                 king_tower_flag = 1
                 continue
 
             if waiting_key is gl.key_list.king_tower_continue:
-                gl.adb.log("挑战王座之塔成功, 即将点击屏幕")
+                gl.zstr.log("挑战王座之塔成功, 即将点击屏幕")
                 gl.adb.click(waiting_key)
                 time.sleep(2)
                 king_tower_flag = 0
@@ -157,9 +157,9 @@ class AFK:
                 i[key.en_name] += 1
 
                 if i[key.en_name] >= 35:
-                    gl.adb.log(f'特征匹配失败, 请在{key.en_name}的distance字段中加入或替换, "{gl.adb.rp}": "{d}"')
+                    gl.zstr.log(f'特征匹配失败, 请在{key.en_name}的distance字段中加入或替换, "{gl.adb.rp}": "{d}"')
 
-                gl.adb.log(f"识别到特征 {d} 目标特征 {key.distance}")
+                gl.zstr.log(f"识别到特征 {d} 目标特征 {key.distance}")
 
                 if str(d) == gl.key_list.retry.distance:
                     return gl.key_list.retry
@@ -190,9 +190,9 @@ class AFK:
                     img2 = zcv.imread(key.img)
                     d, pt = zcv.bf_distance(img1, img2)
 
-                    gl.adb.log(f"开始匹配{key.en_name} 特征点{d}")
+                    gl.zstr.log(f"开始匹配{key.en_name} 特征点{d}")
                     if d <= 40:
-                        gl.adb.log(f"匹配到坐标点为 {pt}")
+                        gl.zstr.log(f"匹配到坐标点为 {pt}")
                         key.point = pt
                         return key
                         pass

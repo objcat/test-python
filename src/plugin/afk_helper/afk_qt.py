@@ -67,11 +67,6 @@ class AFKMainWindow(QMainWindow):
             return
 
 
-
-def xixi():
-    print(xixi)
-
-
 def start():
     # 创建app
     app = QApplication(sys.argv)

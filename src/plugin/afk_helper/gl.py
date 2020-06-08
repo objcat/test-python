@@ -27,7 +27,7 @@ afk = None
 # 设备列表
 device_list = None
 # 当前设备
-current_device = None  # type:Device
+current_device = None
 # 设备是否连接成功
 isConnected = False
 

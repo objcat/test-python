@@ -11,6 +11,9 @@ from plugin.afk_helper.pages.main import afk_main
 from tools import ztr
 from plugin.afk_helper import gl
 
+QMainWindow
+QWidget
+QDialog
 
 class AFKMainWindow(QMainWindow):
 

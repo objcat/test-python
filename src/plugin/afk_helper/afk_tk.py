@@ -4,8 +4,9 @@
 # version: 1.0
 
 import tkinter as tk
-from tools import ztr
+
 from plugin.afk_helper import gl
+from tools import ztr
 
 # 初始化全局变量
 gl.init()
@@ -18,6 +19,7 @@ window.geometry('500x400')
 def stop_all():
     gl.zstr.log("终止所有操作")
     ztr.stop_all()
+
 
 def show_screen():
     ztr.run(gl.afk.show_screen)

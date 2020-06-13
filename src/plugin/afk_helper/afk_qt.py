@@ -4,12 +4,13 @@
 # version: 1.0
 
 import sys
-import time
-from PyQt5.QtWidgets import *
+
 from PyQt5 import QtGui
+from PyQt5.QtWidgets import *
+
+from plugin.afk_helper import gl
 from plugin.afk_helper.pages.main import afk_main
 from tools import ztr
-from plugin.afk_helper import gl
 
 
 class AFKMainWindow(QMainWindow):

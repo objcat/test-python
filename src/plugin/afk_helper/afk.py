@@ -142,7 +142,6 @@ class AFK:
         # 建立计数索引
         i = {}
         for key in keys:
-            key: Key
             i[key.en_name] = 0
         while 1:
             flag = 0

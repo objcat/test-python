@@ -158,7 +158,7 @@ class AFK:
                 if i[key.en_name] >= 35:
                     gl.zstr.log(f'特征匹配失败, 请在{key.en_name}的distance字段中加入或替换, "{gl.adb.rp}": "{d}"')
 
-                gl.zstr.log(f"识别到特征 {d} 目标特征 {key.distance}")
+                gl.zstr.log(f"识别到特征 {d} {key.en_name}: {key.distance}")
 
                 if str(d) == gl.key_list.retry.distance:
                     return gl.key_list.retry

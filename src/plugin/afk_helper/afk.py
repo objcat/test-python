@@ -160,13 +160,14 @@ class AFK:
 
                 gl.zstr.log(f"识别到特征 {d} {key.en_name}: {key.distance}")
 
-                if str(d) == gl.key_list.retry.distance:
+                if float(gl.key_list.retry.distance) + 1 >= d >= float(gl.key_list.retry.distance) - 1:
                     return gl.key_list.retry
 
-                if str(d) == gl.key_list.next.distance:
+                if float(gl.key_list.next.distance) + 1 >= d >= float(gl.key_list.next.distance) - 1:
                     return gl.key_list.next
 
-                if str(d) == gl.key_list.king_tower_continue.distance:
+                if float(gl.key_list.king_tower_continue.distance) + 1 >= d >= float(
+                        gl.key_list.king_tower_continue.distance) - 1:
                     return gl.key_list.king_tower_continue
 
     def waiting_keys_2(self, keys):

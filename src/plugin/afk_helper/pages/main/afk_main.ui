@@ -169,7 +169,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radio3">
+         <widget class="QRadioButton" name="radio2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -182,7 +182,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radio2">
+         <widget class="QRadioButton" name="radio3">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>

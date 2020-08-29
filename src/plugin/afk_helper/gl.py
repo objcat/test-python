@@ -30,6 +30,8 @@ device_list = None
 current_device = None
 # 设备是否连接成功
 isConnected = False
+# 关卡编码
+breakthrough_num = 0
 
 
 def init():

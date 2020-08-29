@@ -46,6 +46,21 @@ class AFKMainWindow(QMainWindow):
             lambda: self.device_combo_box_change(self.ui.device_combo_box))
         # 连接
         self.ui.connect_btn.clicked.connect(lambda: self.connect_device())
+        # 单选框
+        self.ui.radio0.clicked.connect(lambda: self.choose_radio(self.ui.radio0))
+        self.ui.radio1.clicked.connect(lambda: self.choose_radio(self.ui.radio1))
+        self.ui.radio2.clicked.connect(lambda: self.choose_radio(self.ui.radio2))
+        self.ui.radio3.clicked.connect(lambda: self.choose_radio(self.ui.radio3))
+
+    def choose_radio(self, radio):
+        if radio == self.ui.radio0:
+            gl.breakthrough_num = 0
+        elif radio == self.ui.radio1:
+            gl.breakthrough_num = 1
+        elif radio == self.ui.radio2:
+            gl.breakthrough_num = 2
+        elif radio == self.ui.radio3:
+            gl.breakthrough_num = 3
 
     def connect_device(self):
         gl.zstr.log("尝试重新连接")

@@ -61,13 +61,14 @@ class AFK:
         """
 
         retry_flag = 0
+        breakthrough_num = gl.breakthrough_num
 
         # 点击挑战首领
         gl.adb.click(gl.key_list.challenge_boss)
         time.sleep(1)
 
         for i in range(100):
-            if retry_flag == 0:
+            if retry_flag == 0 and breakthrough_num == 0:
                 # 点击弹窗中的挑战首领(有时会出现)
                 gl.adb.click(gl.key_list.second_challenge_boss)
                 time.sleep(2)
@@ -89,8 +90,16 @@ class AFK:
                 gl.zstr.log("挑战成功, 即将进入下一关!")
                 gl.adb.click(waiting_key)
                 retry_flag = 0
+                breakthrough_num = self.setting_window_num(breakthrough_num)
                 time.sleep(2)
                 continue
+
+    def setting_window_num(self, breakthrough_num):
+        breakthrough_num += 1
+        if breakthrough_num == 4:
+            breakthrough_num = 0
+        print(breakthrough_num)
+        return breakthrough_num
 
     def auto_challenge_king_tower(self):
         """自动挑战王座之塔

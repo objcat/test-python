@@ -13,7 +13,12 @@ import os
 """
 
 # 读取文件
-with open(pathlib.Path("1.txt")) as f:
+with open("../2.txt") as f:
+    s = f.read()
+    print(s)
+
+
+with open(pathlib.Path.cwd().parent.joinpath("2.txt")) as f:
     s = f.read()
     print(s)
 
@@ -30,6 +35,7 @@ print(os.getcwd())
 # 显示为 /Users/macmini/project/python/test-python/src/playground/36_new
 print("pathlib获取当前文件路径")
 print(pathlib.Path.cwd())
+print(type(pathlib.Path.cwd()))
 
 # os获取上层路径
 print("os获取上层路径")
@@ -76,7 +82,7 @@ print(pathlib.Path.cwd().joinpath(*path))
 # os.rename(os.path.join("1.txt"), os.path.join("project", "test", "1.txt"))
 
 # pathlib文件剪切
-pathlib.Path("1.txt").rename(pathlib.Path("project", "test", "2.txt"))
+# pathlib.Path("1.txt").rename(pathlib.Path("project", "test", "2.txt"))
 
 
 

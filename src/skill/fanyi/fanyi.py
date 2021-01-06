@@ -72,7 +72,7 @@ def request_baidu(q):
 
 
 def translation2():
-    f1 = open("./FC00I21CheckItemCheckData.h", encoding="utf-8")
+    f1 = open("./FC00I21CheckItemCheckData.txt", encoding="utf-8")
     f3 = open("./3.txt", "a", encoding="utf-8")
     arr = f1.readlines()
     result = []

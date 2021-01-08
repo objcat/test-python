@@ -106,8 +106,9 @@ def sleep():
     global life
     global alive
     global count
-    # 睡觉
+    # 生命流逝
     life -= 1
+    # 天数增加
     count += 1
 
 

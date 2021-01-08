@@ -7,11 +7,8 @@
 import datetime
 from tools import zdate
 
-# begin = input("开始日期: ")
-# end = input("结束日期: ")
-
-begin = "2020-12-23"
-end = "2021-01-08"
+begin = "2021-01-07"
+end = "2021-02-08"
 
 money = 10000
 annual_interest_rate = 0.045
@@ -26,7 +23,7 @@ print(f"开始日期 {zdate.date_to_str_ymd(begin_date)}")
 print(f"结束日期 {zdate.date_to_str_ymd(end_date)}")
 print(f"等待期两天 {zdate.date_to_str_ymd(begin_date)} 和 {zdate.date_to_str_ymd(begin_date + datetime.timedelta(days=1))}")
 
-# 涉及到钱的天数 加2是计算开始日期和结束日期
+# 涉及到钱的天数 加1是加上结束日期
 total_day = (end_date - begin_date).days + 1
 
 # 判断是否为周末

@@ -5,13 +5,12 @@
 
 import functools
 import random
+import time
 
-# 是否还活着
-alive = True
 # 生命
 life = 18250
 # 计数
-count = 0
+count = 1
 # 是否为正常死亡
 normal_die = True
 
@@ -24,6 +23,7 @@ def hook(func):
         accident(func)
         # 检测是否活着
         check_life()
+        time.sleep(1)
         return func(*args, **kwargs)
 
     return new_func
@@ -31,12 +31,8 @@ def hook(func):
 
 # 检测是否活着及后续处理
 def check_life():
-    global alive
     # 如果生命值归0 死亡
     if life <= 0:
-        alive = False
-    # 如果死亡 安葬
-    if alive is False:
         burial()
         exit()
 
@@ -45,8 +41,9 @@ def check_life():
 def accident(func):
     global life
     global normal_die
-    number = random.randint(0, 9)
+    number = random.randint(0, 20)
     if number == 0:
+        # 发生意外非正常死亡
         life = 0
         normal_die = False
         print(f"{func.__name__} 发生意外")
@@ -104,12 +101,13 @@ def think_life():
 def sleep():
     # 睡觉
     global life
-    global alive
     global count
+    print(f"第{count}次 睡觉")
     # 生命流逝
     life -= 1
     # 天数增加
     count += 1
+    print(f"准备进入第 {count} 天...")
 
 
 def burial():
@@ -121,7 +119,7 @@ def burial():
         print("发生意外, 呜呼哀哉!")
 
 
-while (alive):
+while (life > 0):
     # 起床
     getup()
     # 上班

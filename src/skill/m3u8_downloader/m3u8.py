@@ -40,13 +40,20 @@ def analysis_m3u8_file_and_download(m3u8_path, download_path, domain):
             if os.path.exists(new_file_path):
                 i += 1
                 continue
-            time.sleep(1)
-            download_url = domain + line
+            time.sleep(2)
+            download_url = build_download_url(domain, line)
             print("开始下载:" + download_url.strip())
             print("下载进度" + str(i) + " / " + str(total))
             i += 1
             MyThread(download_url, download_path).start()
     print("总进度 " + str(total) + " / " + str(total) + " 下载完成!")
+
+
+def build_download_url(domain, line):
+    filename = os.path.basename(m3u8_url)
+    download_base_url = m3u8_url.replace(filename, "")
+    return download_base_url + line
+    # return domain + line
 
 
 def download(download_url, download_path):
@@ -59,7 +66,7 @@ def download(download_url, download_path):
 
     new_file_path = download_path + os.path.basename(download_url.strip())
     try:
-        res = request(url=download_url.strip(), method="get", timeout=20)
+        res = request(url=download_url.strip(), method="get", timeout=20, headers=http_header)
         with open(new_file_path, "wb") as video:
             video.write(res.content)
     except Exception as e:
@@ -103,20 +110,21 @@ def mix(m3u8_path, download_path):
         if arr.index(line) == 0:
             cmd = cmd + " " + line
         elif arr.index(line) == count - 1:
-            cmd = cmd + " " + "mix.ts"
+            cmd = cmd + " " + "aaa.ts"
         else:
             cmd = cmd + "+" + line
     with open(download_path + "run.bat", "w") as bat:
         bat.write(cmd)
 
 
-def download_m3u8_file(url):
+def download_m3u8_file():
     """
     下载m3u8文件
     :param url: m3u8文件url
     :return:
     """
 
+    url = m3u8_url
     file_name = hashlib.md5(url.encode()).hexdigest()
     download_path = mkdir(base_path + "/" + file_name) + "/"
     m3u8_path = base_path + "/" + file_name + "/" + file_name + ".m3u8"
@@ -135,7 +143,8 @@ def download_m3u8_file(url):
 
     if not exist:
         try:
-            req = request(method="get", url=url)
+            print(http_header)
+            req = request(method="get", url=url, headers=http_header)
             fo = open(m3u8_path, "w", encoding="utf-8")
             fo.write(req.content.decode())
             fo.close()
@@ -147,6 +156,10 @@ def download_m3u8_file(url):
         return m3u8_path, download_path, domain
 
 
+http_header = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+}
+
 # 下载根路径 设置成 "." 则为当前目录
 base_path = "D:/video"
 m3u8_url = "https://www.xxxx.com/xxx.m3u8"
@@ -154,7 +167,7 @@ m3u8_url = "https://www.xxxx.com/xxx.m3u8"
 
 def start():
     # 下载m3u8文件
-    m3u8_path, download_path, domain = download_m3u8_file(m3u8_url)
+    m3u8_path, download_path, domain = download_m3u8_file()
     # 解析文件并下载ts
     analysis_m3u8_file_and_download(m3u8_path, download_path, domain)
     # 生成自动合成脚本

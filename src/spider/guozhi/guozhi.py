@@ -10,14 +10,18 @@ from win32com.client import Dispatch
 import pathlib
 import os
 
-class download:
+
+class Guozhi:
+    FC_URL = "http://2018.emu618.net:6180/index.php?controller=site&action=pro_list&cat=23"
+    SFC_URL = "http://2018.emu618.net:6180/index.php?controller=site&action=pro_list&cat=115"
+    MD_URL = "http://2018.emu618.net:6180/index.php?controller=site&action=pro_list&cat=47"
 
     @classmethod
     def parse_url(cls):
         baseurl = "http://2018.emu618.net:6180"
-        for page in range(53, 125):
+        for page in range(79, 80):
             print(f"开始爬取第 {page} 页")
-            res = requests.get(f"http://2018.emu618.net:6180/index.php?controller=site&action=pro_list&cat=23&page={page}")
+            res = requests.get(Guozhi.MD_URL + f"&page={page}")
             # 转换编码 乱码的时候需要转换
             res.encoding = "utf-8"
             main_page = BeautifulSoup(res.text, "html.parser")
@@ -45,4 +49,4 @@ class download:
 
 
 if __name__ == '__main__':
-    download.parse_url()
+    Guozhi.parse_url()

@@ -6,6 +6,23 @@
 
 from datetime import datetime, timedelta
 
+def date_to_str_d(date):
+    """
+    日期转字符串
+    :param date: 日期
+    :return: 字符串日期 例 2021-01-18
+    """
+    return datetime.strftime(date, "%d")
+
+
+def date_to_str_md(date):
+    """
+    日期转字符串
+    :param date: 日期
+    :return: 字符串日期 例 2021-01-18
+    """
+    return datetime.strftime(date, "%m-%d")
+
 
 def date_to_str_ymd(date):
     """

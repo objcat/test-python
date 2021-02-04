@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<service name="DMSGestureRecognition">
+    <create_at>TEST.NOW</create_at>
+    <version>0x01</version>
+    <service_spec_version>1.00</service_spec_version>
+    <service_id>0xB032</service_id>
+    <service_instance_id>1</service_instance_id>
+    <service_description_index>驾驶员手势识别服务</service_description_index>
+    <service_interface interface_id="0x0001">
+        <interface_name>DMSGestureInstructions</interface_name>
+        <interface_description_index>驾驶员手势</interface_description_index>
+        <interface_type>Event</interface_type>
+        <output>
+            <output_number>01</output_number>
+            <output_name>GestureInstructions</output_name>
+            <output_description_index>驾驶员手势</output_description_index>
+            <output_type>Uint8</output_type>
+            <max_value />
+            <min_value />
+            <value_semanteme value="0x0">NoGesture;</value_semanteme>
+            <value_semanteme value="0x1">胜利</value_semanteme>
+            <value_semanteme value="0x2">点赞</value_semanteme>
+            <value_semanteme value="0x3">打招呼</value_semanteme>
+            <value_semanteme value="0x4">FingerHeart；</value_semanteme>
+            <value_semanteme value="0x5">OK；</value_semanteme>
+            <value_semanteme value="0x6">UP；</value_semanteme>
+            <value_semanteme value="0x7">Down；</value_semanteme>
+            <value_semanteme value="0x8">Left;</value_semanteme>
+            <value_semanteme value="0x9">Right</value_semanteme>
+        </output>
+    </service_interface>
+</service>

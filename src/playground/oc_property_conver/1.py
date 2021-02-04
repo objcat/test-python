@@ -5,6 +5,8 @@ f = open(r"./1.txt", encoding='utf-8')
 
 s = f.readlines()
 
+f.close()
+
 arr = []
 
 def haveKey(key, arr):
@@ -73,7 +75,7 @@ def getDBSQL():
     result += "CREATE TABLE IF NOT EXISTS ZYTable (\n"
     for i in arr:
         result += f"{i['key']} text NOT NULL DEFAULT '', \n"
-    result += "PRIMARY KEY (D01008, D00322, D36881, D16713)\n"
+    result += "PRIMARY KEY (D01008, D00322, D36881)\n"
     result += ");"
     print(result)
 
@@ -82,8 +84,8 @@ def getDBSQL():
 
 
 if __name__ == '__main__':
-    # getModel()
-    # getKeyList()
+    getModel()
+    getKeyList()
     getDBSQL()
 
 

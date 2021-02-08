@@ -39,6 +39,8 @@ class AFKMainWindow(QMainWindow):
         self.ui.auto_challenge_btn.clicked.connect(lambda: self.btn_action(self.ui.auto_challenge_btn))
         # 自动爬塔
         self.ui.auto_tower_btn.clicked.connect(lambda: self.btn_action(self.ui.auto_tower_btn))
+        # 自动抓牌
+        self.ui.auto_pai.clicked.connect(lambda: self.btn_action(self.ui.auto_pai))
         # 终止所有操作
         self.ui.stop_all_btn.clicked.connect(lambda: self.btn_action(self.ui.stop_all_btn))
         # device下拉框
@@ -92,6 +94,9 @@ class AFKMainWindow(QMainWindow):
         if btn == self.ui.auto_tower_btn:
             ztr.add('自动爬塔', lambda: gl.afk.auto_challenge_king_tower())
             return
+
+        if btn == self.ui.auto_pai:
+            ztr.add('自动打牌', lambda: gl.afk.auto_da_pai())
 
         if btn == self.ui.stop_all_btn:
             gl.zstr.log("终止所有操作")

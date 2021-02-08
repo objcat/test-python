@@ -8,6 +8,7 @@ import time
 from plugin.afk_helper import gl
 from tools.zcv import zcv
 from tools import zstr
+from plugin.afk_helper.model.key import Key
 
 
 def func(event):
@@ -141,6 +142,15 @@ class AFK:
                 time.sleep(2)
                 king_tower_flag = 0
                 continue
+
+    def auto_da_pai(self):
+
+        while True:
+            gl.adb.click(gl.key_list.xuan_pai)
+            gl.adb.click(gl.key_list.zhua_pai)
+            time.sleep(1)
+
+        pass
 
     def waiting_keys(self, keys):
         """流程识别1.0

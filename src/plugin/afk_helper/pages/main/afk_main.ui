@@ -53,6 +53,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="auto_pai">
+       <property name="text">
+        <string>自动抓牌</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="stop_all_btn">
        <property name="text">
         <string>终止所有操作</string>

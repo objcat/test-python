@@ -52,6 +52,8 @@ class KeyList:
         self.white_place = Key()
         self.king_challenge = Key()
         self.king_tower_continue = Key()
+        self.xuan_pai = Key()
+        self.zhua_pai = Key()
 
     @classmethod
     def init_with_key_map(cls):

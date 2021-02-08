@@ -137,7 +137,6 @@ class Adb:
         key: Key
 
         name = key.name
-        width, height = self.get_screen_size()
         x, y = key.point
         gl.zstr.log(f"点击{name} x={x} y={y}")
         os.system(f"{self.adb} -s {self.device} shell input tap {x} {y}")

@@ -44,7 +44,8 @@ class AFKMainWindow(QMainWindow):
         # 终止所有操作
         self.ui.stop_all_btn.clicked.connect(lambda: self.btn_action(self.ui.stop_all_btn))
         # device下拉框
-        self.ui.device_combo_box.currentIndexChanged.connect(lambda: self.device_combo_box_change(self.ui.device_combo_box))
+        self.ui.device_combo_box.currentIndexChanged.connect(
+            lambda: self.device_combo_box_change(self.ui.device_combo_box))
         # 连接
         self.ui.connect_btn.clicked.connect(lambda: self.connect_device())
         # 单选框

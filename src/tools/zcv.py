@@ -101,9 +101,12 @@ class Zcv:
 
     def bf_distance(self, img1, img2):
         matches, kp1 = self.bf(img1, img2, False)
-        queryIdx = matches[0].queryIdx
-        kp = kp1[queryIdx]
-        return matches[0].distance, kp.pt
+        if len(matches) > 0:
+            queryIdx = matches[0].queryIdx
+            kp = kp1[queryIdx]
+            return matches[0].distance, kp.pt
+        else:
+            return 65535, (0, 0)
 
 
 zcv = Zcv()

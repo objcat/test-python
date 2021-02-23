@@ -30,15 +30,17 @@ class AFKMainWindow(QMainWindow):
 
     def bind_slot(self):
         # 显示屏幕
-        self.ui.show_screen_cut_btn.clicked.connect(lambda: self.btn_action(self.ui.show_screen_cut_btn))
+        self.ui.show_screen_action.triggered.connect(lambda: self.btn_action(self.ui.show_screen_action))
         # 绘制特征线
-        self.ui.draw_sift_line_btn.clicked.connect(lambda: self.btn_action(self.ui.draw_sift_line_btn))
+        self.ui.draw_sift_line_action.triggered.connect(lambda: self.btn_action(self.ui.draw_sift_line_action))
         # 打印特征
-        self.ui.print_distance_btn.clicked.connect(lambda: self.btn_action(self.ui.print_distance_btn))
+        self.ui.print_distance_action.triggered.connect(lambda: self.btn_action(self.ui.print_distance_action))
         # 自动挑战
         self.ui.auto_challenge_btn.clicked.connect(lambda: self.btn_action(self.ui.auto_challenge_btn))
         # 自动爬塔
         self.ui.auto_tower_btn.clicked.connect(lambda: self.btn_action(self.ui.auto_tower_btn))
+        # 自动抓牌
+        self.ui.auto_pai.clicked.connect(lambda: self.btn_action(self.ui.auto_pai))
         # 终止所有操作
         self.ui.stop_all_btn.clicked.connect(lambda: self.btn_action(self.ui.stop_all_btn))
         # device下拉框
@@ -72,16 +74,16 @@ class AFKMainWindow(QMainWindow):
             gl.zstr.log("设备未连接, 请点击连接")
             return
 
-        if btn == self.ui.show_screen_cut_btn:
+        if btn == self.ui.show_screen_action:
             # 由于plt只能在主线程中调用
             gl.afk.show_screen()
             return
 
-        if btn == self.ui.draw_sift_line_btn:
+        if btn == self.ui.draw_sift_line_action:
             gl.afk.make_sift_line()
             return
 
-        if btn == self.ui.print_distance_btn:
+        if btn == self.ui.print_distance_action:
             ztr.add('打印特征', lambda: gl.afk.log_sift_distance())
             return
 
@@ -93,10 +95,17 @@ class AFKMainWindow(QMainWindow):
             ztr.add('自动爬塔', lambda: gl.afk.auto_challenge_king_tower())
             return
 
+        if btn == self.ui.auto_pai:
+            ztr.add('自动打牌', lambda: gl.afk.auto_da_pai())
+
         if btn == self.ui.stop_all_btn:
             gl.zstr.log("终止所有操作")
             ztr.stop_all()
             return
+
+        def show_screen():
+            print("显示屏幕")
+            pass
 
     def bind_data(self):
         for device in gl.device_list:  # type: gl.Device

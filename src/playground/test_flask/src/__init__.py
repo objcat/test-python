@@ -4,6 +4,7 @@
 # version: 1.0
 
 from flask import Flask
+
 from playground.test_flask.src.normal.views import normal
 from playground.test_flask.src.admin.views import admin
 

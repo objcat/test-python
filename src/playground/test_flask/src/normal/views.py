@@ -9,4 +9,4 @@ normal = Blueprint(__name__, __name__)
 
 @normal.route("/hello")
 def hello():
-    return "i am normal"
+    return {"name": "张三"}
